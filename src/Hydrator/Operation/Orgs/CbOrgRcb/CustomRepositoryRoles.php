@@ -10,7 +10,7 @@ use EventSauce\ObjectHydrator\UnableToHydrateObject;
 use EventSauce\ObjectHydrator\UnableToSerializeObject;
 use Generator;
 
-class CustomRoles implements ObjectMapper
+class CustomRepositoryRoles implements ObjectMapper
 {
     private array $hydrationStack = [];
     public function __construct() {}
@@ -23,7 +23,8 @@ class CustomRoles implements ObjectMapper
     public function hydrateObject(string $className, array $payload): object
     {
         return match($className) {
-            'ApiClients\Client\GitHubEnterpriseCloud\Schema\OrganizationCustomRepositoryRole' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️OrganizationCustomRepositoryRole($payload),
+            'ApiClients\Client\GitHubEnterpriseCloud\Schema\Operation\Orgs\ListCustomRoles\Response\Applicationjson\H200' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️Operation⚡️Orgs⚡️ListCustomRoles⚡️Response⚡️Applicationjson⚡️H200($payload),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\OrganizationCustomRepositoryRole' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️OrganizationCustomRepositoryRole($payload),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleUser' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUser($payload),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\ValidationError' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ValidationError($payload),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\ValidationError\Errors' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ValidationError⚡️Errors($payload),
@@ -33,6 +34,60 @@ class CustomRoles implements ObjectMapper
     }
     
             
+        private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️Operation⚡️Orgs⚡️ListCustomRoles⚡️Response⚡️Applicationjson⚡️H200(array $payload): \ApiClients\Client\GitHubEnterpriseCloud\Schema\Operation\Orgs\ListCustomRoles\Response\Applicationjson\H200
+        {
+            $properties = []; 
+            $missingFields = [];
+            try {
+                
+                $value = $payload['total_count'] ?? null;
+    
+                if ($value === null) {
+                    $properties['total_count'] = null;
+                    goto after_total_count;
+                }
+
+                $properties['total_count'] = $value;
+    
+                after_total_count:
+
+                $value = $payload['custom_roles'] ?? null;
+    
+                if ($value === null) {
+                    $properties['custom_roles'] = null;
+                    goto after_custom_roles;
+                }
+
+                static $custom_rolesCaster1;
+    
+                if ($custom_rolesCaster1 === null) {
+                    $custom_rolesCaster1 = new \EventSauce\ObjectHydrator\PropertyCasters\CastListToType(...array (
+  0 => 'ApiClients\\Client\\GitHubEnterpriseCloud\\Schema\\OrganizationCustomRepositoryRole',
+));
+                }
+    
+                $value = $custom_rolesCaster1->cast($value, $this);
+
+                $properties['custom_roles'] = $value;
+    
+                after_custom_roles:
+
+            } catch (\Throwable $exception) {
+                throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\Operation\Orgs\ListCustomRoles\Response\Applicationjson\H200', $exception, stack: $this->hydrationStack);
+            }
+            
+            if (count($missingFields) > 0) {
+                throw UnableToHydrateObject::dueToMissingFields(\ApiClients\Client\GitHubEnterpriseCloud\Schema\Operation\Orgs\ListCustomRoles\Response\Applicationjson\H200::class, $missingFields, stack: $this->hydrationStack);
+            }
+            
+            try {
+                return new \ApiClients\Client\GitHubEnterpriseCloud\Schema\Operation\Orgs\ListCustomRoles\Response\Applicationjson\H200(...$properties);
+            } catch (\Throwable $exception) {
+                throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\Operation\Orgs\ListCustomRoles\Response\Applicationjson\H200', $exception, stack: $this->hydrationStack);
+            }
+        }
+
+        
         private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️OrganizationCustomRepositoryRole(array $payload): \ApiClients\Client\GitHubEnterpriseCloud\Schema\OrganizationCustomRepositoryRole
         {
             $properties = []; 
@@ -634,6 +689,7 @@ class CustomRoles implements ObjectMapper
                 'DateTime' => $this->serializeValueDateTime($object),
                 'DateTimeImmutable' => $this->serializeValueDateTimeImmutable($object),
                 'DateTimeInterface' => $this->serializeValueDateTimeInterface($object),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\Operation\Orgs\ListCustomRoles\Response\Applicationjson\H200' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️Operation⚡️Orgs⚡️ListCustomRoles⚡️Response⚡️Applicationjson⚡️H200($object),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\OrganizationCustomRepositoryRole' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️OrganizationCustomRepositoryRole($object),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleUser' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUser($object),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\ValidationError' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ValidationError($object),
@@ -709,6 +765,40 @@ class CustomRoles implements ObjectMapper
         }
         
         return $serializer->serialize($value, $this);
+    }
+
+    
+    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️Operation⚡️Orgs⚡️ListCustomRoles⚡️Response⚡️Applicationjson⚡️H200(mixed $object): mixed
+    {
+        \assert($object instanceof \ApiClients\Client\GitHubEnterpriseCloud\Schema\Operation\Orgs\ListCustomRoles\Response\Applicationjson\H200);
+        $result = [];
+        
+        $total_count = $object->total_count;
+
+        if ($total_count === null) {
+            goto after_total_count;
+        }
+        after_total_count:        $result['total_count'] = $total_count;
+
+        
+        $custom_roles = $object->custom_roles;
+
+        if ($custom_roles === null) {
+            goto after_custom_roles;
+        }
+        static $custom_rolesSerializer0;
+
+        if ($custom_rolesSerializer0 === null) {
+            $custom_rolesSerializer0 = new \EventSauce\ObjectHydrator\PropertyCasters\CastListToType(...array (
+  0 => 'ApiClients\\Client\\GitHubEnterpriseCloud\\Schema\\OrganizationCustomRepositoryRole',
+));
+        }
+        
+        $custom_roles = $custom_rolesSerializer0->serialize($custom_roles, $this);
+        after_custom_roles:        $result['custom_roles'] = $custom_roles;
+
+
+        return $result;
     }
 
     
