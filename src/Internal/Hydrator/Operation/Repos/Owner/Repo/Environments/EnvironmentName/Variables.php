@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ApiClients\Client\GitHubEnterpriseCloud\Internal\Hydrator\Operation\Repositories\RepositoryId\Environments\EnvironmentName\Secrets;
+namespace ApiClients\Client\GitHubEnterpriseCloud\Internal\Hydrator\Operation\Repos\Owner\Repo\Environments\EnvironmentName;
 
-use ApiClients\Client\GitHubEnterpriseCloud\Schema\ActionsSecret;
+use ApiClients\Client\GitHubEnterpriseCloud\Schema\Operations\Actions\ListEnvironmentVariables\Response\ApplicationJson\Ok\Application\Json;
 use EventSauce\ObjectHydrator\IterableList;
 use EventSauce\ObjectHydrator\ObjectMapper;
 use EventSauce\ObjectHydrator\PropertySerializers\SerializeArrayItems;
@@ -20,7 +20,7 @@ use function assert;
 use function count;
 use function is_a;
 
-class SecretName implements ObjectMapper
+class Variables implements ObjectMapper
 {
     private array $hydrationStack = [];
 
@@ -38,60 +38,49 @@ class SecretName implements ObjectMapper
     public function hydrateObject(string $className, array $payload): object
     {
         return match ($className) {
-            'ApiClients\Client\GitHubEnterpriseCloud\Schema\ActionsSecret' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ActionsSecret($payload),
+            'ApiClients\Client\GitHubEnterpriseCloud\Schema\Operations\Actions\ListEnvironmentVariables\Response\ApplicationJson\Ok\Application\Json' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️Operations⚡️Actions⚡️ListEnvironmentVariables⚡️Response⚡️ApplicationJson⚡️Ok⚡️Application⚡️Json($payload),
             default => throw UnableToHydrateObject::noHydrationDefined($className, $this->hydrationStack),
         };
     }
 
-    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ActionsSecret(array $payload): ActionsSecret
+    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️Operations⚡️Actions⚡️ListEnvironmentVariables⚡️Response⚡️ApplicationJson⚡️Ok⚡️Application⚡️Json(array $payload): Json
     {
         $properties    = [];
         $missingFields = [];
         try {
-            $value = $payload['name'] ?? null;
+            $value = $payload['total_count'] ?? null;
 
             if ($value === null) {
-                $missingFields[] = 'name';
-                goto after_name;
+                $missingFields[] = 'total_count';
+                goto after_totalCount;
             }
 
-            $properties['name'] = $value;
+            $properties['totalCount'] = $value;
 
-            after_name:
+            after_totalCount:
 
-            $value = $payload['created_at'] ?? null;
+            $value = $payload['variables'] ?? null;
 
             if ($value === null) {
-                $missingFields[] = 'created_at';
-                goto after_createdAt;
+                $missingFields[] = 'variables';
+                goto after_variables;
             }
 
-            $properties['createdAt'] = $value;
+            $properties['variables'] = $value;
 
-            after_createdAt:
-
-            $value = $payload['updated_at'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'updated_at';
-                goto after_updatedAt;
-            }
-
-            $properties['updatedAt'] = $value;
-
-            after_updatedAt:
+            after_variables:
         } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\ActionsSecret', $exception, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\Operations\Actions\ListEnvironmentVariables\Response\ApplicationJson\Ok\Application\Json', $exception, stack: $this->hydrationStack);
         }
 
         if (count($missingFields) > 0) {
-            throw UnableToHydrateObject::dueToMissingFields(ActionsSecret::class, $missingFields, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToMissingFields(Json::class, $missingFields, stack: $this->hydrationStack);
         }
 
         try {
-            return new ActionsSecret(...$properties);
+            return new Json(...$properties);
         } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\ActionsSecret', $exception, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\Operations\Actions\ListEnvironmentVariables\Response\ApplicationJson\Ok\Application\Json', $exception, stack: $this->hydrationStack);
         }
     }
 
@@ -126,7 +115,7 @@ class SecretName implements ObjectMapper
                 'DateTime' => $this->serializeValueDateTime($object),
                 'DateTimeImmutable' => $this->serializeValueDateTimeImmutable($object),
                 'DateTimeInterface' => $this->serializeValueDateTimeInterface($object),
-                'ApiClients\Client\GitHubEnterpriseCloud\Schema\ActionsSecret' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ActionsSecret($object),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\Operations\Actions\ListEnvironmentVariables\Response\ApplicationJson\Ok\Application\Json' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️Operations⚡️Actions⚡️ListEnvironmentVariables⚡️Response⚡️ApplicationJson⚡️Ok⚡️Application⚡️Json($object),
                 default => throw new LogicException('No serialization defined for $className'),
             };
         } catch (Throwable $exception) {
@@ -189,19 +178,23 @@ class SecretName implements ObjectMapper
         return $serializer->serialize($value, $this);
     }
 
-    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ActionsSecret(mixed $object): mixed
+    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️Operations⚡️Actions⚡️ListEnvironmentVariables⚡️Response⚡️ApplicationJson⚡️Ok⚡️Application⚡️Json(mixed $object): mixed
     {
-        assert($object instanceof ActionsSecret);
+        assert($object instanceof Json);
         $result = [];
 
-        $name                              = $object->name;
-        after_name:        $result['name'] = $name;
+        $totalCount                                     = $object->totalCount;
+        after_totalCount:        $result['total_count'] = $totalCount;
 
-        $createdAt                                    = $object->createdAt;
-        after_createdAt:        $result['created_at'] = $createdAt;
+        $variables = $object->variables;
+        static $variablesSerializer0;
 
-        $updatedAt                                    = $object->updatedAt;
-        after_updatedAt:        $result['updated_at'] = $updatedAt;
+        if ($variablesSerializer0 === null) {
+            $variablesSerializer0 = new SerializeArrayItems(...[]);
+        }
+
+        $variables                                   = $variablesSerializer0->serialize($variables, $this);
+        after_variables:        $result['variables'] = $variables;
 
         return $result;
     }

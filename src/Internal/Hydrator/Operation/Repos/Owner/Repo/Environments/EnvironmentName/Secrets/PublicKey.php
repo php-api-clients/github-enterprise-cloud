@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ApiClients\Client\GitHubEnterpriseCloud\Internal\Hydrator\Operation\Repositories\RepositoryId\Environments\EnvironmentName\Secrets;
+namespace ApiClients\Client\GitHubEnterpriseCloud\Internal\Hydrator\Operation\Repos\Owner\Repo\Environments\EnvironmentName\Secrets;
 
 use ApiClients\Client\GitHubEnterpriseCloud\Schema\ActionsPublicKey;
 use EventSauce\ObjectHydrator\IterableList;
