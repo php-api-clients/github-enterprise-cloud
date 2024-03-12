@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ApiClients\Client\GitHubEnterpriseCloud\Internal\Hydrator\Operation\Scim\V2\Groups;
+namespace ApiClients\Client\GitHubEnterpriseCloud\Internal\Hydrator\Operation\Scim\V2\Enterprises\Enterprise;
 
-use ApiClients\Client\GitHubEnterpriseCloud\Schema\BasicError;
 use ApiClients\Client\GitHubEnterpriseCloud\Schema\GroupResponse;
+use ApiClients\Client\GitHubEnterpriseCloud\Schema\ScimEnterpriseGroupList;
 use ApiClients\Client\GitHubEnterpriseCloud\Schema\ScimError;
 use EventSauce\ObjectHydrator\IterableList;
 use EventSauce\ObjectHydrator\ObjectMapper;
@@ -22,7 +22,7 @@ use function assert;
 use function count;
 use function is_a;
 
-class ScimGroupId implements ObjectMapper
+class Groups implements ObjectMapper
 {
     private array $hydrationStack = [];
 
@@ -40,14 +40,14 @@ class ScimGroupId implements ObjectMapper
     public function hydrateObject(string $className, array $payload): object
     {
         return match ($className) {
-            'ApiClients\Client\GitHubEnterpriseCloud\Schema\GroupResponse' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️GroupResponse($payload),
+            'ApiClients\Client\GitHubEnterpriseCloud\Schema\ScimEnterpriseGroupList' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ScimEnterpriseGroupList($payload),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\ScimError' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ScimError($payload),
-                'ApiClients\Client\GitHubEnterpriseCloud\Schema\BasicError' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️BasicError($payload),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\GroupResponse' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️GroupResponse($payload),
             default => throw UnableToHydrateObject::noHydrationDefined($className, $this->hydrationStack),
         };
     }
 
-    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️GroupResponse(array $payload): GroupResponse
+    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ScimEnterpriseGroupList(array $payload): ScimEnterpriseGroupList
     {
         $properties    = [];
         $missingFields = [];
@@ -63,50 +63,61 @@ class ScimGroupId implements ObjectMapper
 
             after_schemas:
 
-            $value = $payload['external_id'] ?? null;
+            $value = $payload['total_results'] ?? null;
 
             if ($value === null) {
-                $properties['externalId'] = null;
-                goto after_externalId;
+                $missingFields[] = 'total_results';
+                goto after_totalResults;
             }
 
-            $properties['externalId'] = $value;
+            $properties['totalResults'] = $value;
 
-            after_externalId:
+            after_totalResults:
 
-            $value = $payload['display_name'] ?? null;
+            $value = $payload['Resources'] ?? null;
 
             if ($value === null) {
-                $properties['displayName'] = null;
-                goto after_displayName;
+                $missingFields[] = 'Resources';
+                goto after_resources;
             }
 
-            $properties['displayName'] = $value;
+            $properties['resources'] = $value;
 
-            after_displayName:
+            after_resources:
 
-            $value = $payload['members'] ?? null;
+            $value = $payload['start_index'] ?? null;
 
             if ($value === null) {
-                $properties['members'] = null;
-                goto after_members;
+                $missingFields[] = 'start_index';
+                goto after_startIndex;
             }
 
-            $properties['members'] = $value;
+            $properties['startIndex'] = $value;
 
-            after_members:
+            after_startIndex:
+
+            $value = $payload['items_per_page'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'items_per_page';
+                goto after_itemsPerPage;
+            }
+
+            $properties['itemsPerPage'] = $value;
+
+            after_itemsPerPage:
         } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\GroupResponse', $exception, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\ScimEnterpriseGroupList', $exception, stack: $this->hydrationStack);
         }
 
         if (count($missingFields) > 0) {
-            throw UnableToHydrateObject::dueToMissingFields(GroupResponse::class, $missingFields, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToMissingFields(ScimEnterpriseGroupList::class, $missingFields, stack: $this->hydrationStack);
         }
 
         try {
-            return new GroupResponse(...$properties);
+            return new ScimEnterpriseGroupList(...$properties);
         } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\GroupResponse', $exception, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\ScimEnterpriseGroupList', $exception, stack: $this->hydrationStack);
         }
     }
 
@@ -195,66 +206,66 @@ class ScimGroupId implements ObjectMapper
         }
     }
 
-    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️BasicError(array $payload): BasicError
+    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️GroupResponse(array $payload): GroupResponse
     {
         $properties    = [];
         $missingFields = [];
         try {
-            $value = $payload['message'] ?? null;
+            $value = $payload['schemas'] ?? null;
 
             if ($value === null) {
-                $properties['message'] = null;
-                goto after_message;
+                $missingFields[] = 'schemas';
+                goto after_schemas;
             }
 
-            $properties['message'] = $value;
+            $properties['schemas'] = $value;
 
-            after_message:
+            after_schemas:
 
-            $value = $payload['documentation_url'] ?? null;
+            $value = $payload['external_id'] ?? null;
 
             if ($value === null) {
-                $properties['documentationUrl'] = null;
-                goto after_documentationUrl;
+                $properties['externalId'] = null;
+                goto after_externalId;
             }
 
-            $properties['documentationUrl'] = $value;
+            $properties['externalId'] = $value;
 
-            after_documentationUrl:
+            after_externalId:
 
-            $value = $payload['url'] ?? null;
+            $value = $payload['display_name'] ?? null;
 
             if ($value === null) {
-                $properties['url'] = null;
-                goto after_url;
+                $properties['displayName'] = null;
+                goto after_displayName;
             }
 
-            $properties['url'] = $value;
+            $properties['displayName'] = $value;
 
-            after_url:
+            after_displayName:
 
-            $value = $payload['status'] ?? null;
+            $value = $payload['members'] ?? null;
 
             if ($value === null) {
-                $properties['status'] = null;
-                goto after_status;
+                $properties['members'] = null;
+                goto after_members;
             }
 
-            $properties['status'] = $value;
+            $properties['members'] = $value;
 
-            after_status:
+            after_members:
         } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\BasicError', $exception, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\GroupResponse', $exception, stack: $this->hydrationStack);
         }
 
         if (count($missingFields) > 0) {
-            throw UnableToHydrateObject::dueToMissingFields(BasicError::class, $missingFields, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToMissingFields(GroupResponse::class, $missingFields, stack: $this->hydrationStack);
         }
 
         try {
-            return new BasicError(...$properties);
+            return new GroupResponse(...$properties);
         } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\BasicError', $exception, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\GroupResponse', $exception, stack: $this->hydrationStack);
         }
     }
 
@@ -289,9 +300,9 @@ class ScimGroupId implements ObjectMapper
                 'DateTime' => $this->serializeValueDateTime($object),
                 'DateTimeImmutable' => $this->serializeValueDateTimeImmutable($object),
                 'DateTimeInterface' => $this->serializeValueDateTimeInterface($object),
-                'ApiClients\Client\GitHubEnterpriseCloud\Schema\GroupResponse' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️GroupResponse($object),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\ScimEnterpriseGroupList' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ScimEnterpriseGroupList($object),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\ScimError' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ScimError($object),
-                'ApiClients\Client\GitHubEnterpriseCloud\Schema\BasicError' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️BasicError($object),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\GroupResponse' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️GroupResponse($object),
                 default => throw new LogicException('No serialization defined for $className'),
             };
         } catch (Throwable $exception) {
@@ -354,9 +365,9 @@ class ScimGroupId implements ObjectMapper
         return $serializer->serialize($value, $this);
     }
 
-    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️GroupResponse(mixed $object): mixed
+    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ScimEnterpriseGroupList(mixed $object): mixed
     {
-        assert($object instanceof GroupResponse);
+        assert($object instanceof ScimEnterpriseGroupList);
         $result = [];
 
         $schemas = $object->schemas;
@@ -369,36 +380,24 @@ class ScimGroupId implements ObjectMapper
         $schemas                                 = $schemasSerializer0->serialize($schemas, $this);
         after_schemas:        $result['schemas'] = $schemas;
 
-        $externalId = $object->externalId;
+        $totalResults                                       = $object->totalResults;
+        after_totalResults:        $result['total_results'] = $totalResults;
 
-        if ($externalId === null) {
-            goto after_externalId;
+        $resources = $object->resources;
+        static $resourcesSerializer0;
+
+        if ($resourcesSerializer0 === null) {
+            $resourcesSerializer0 = new SerializeArrayItems(...[]);
         }
 
-        after_externalId:        $result['external_id'] = $externalId;
+        $resources                                   = $resourcesSerializer0->serialize($resources, $this);
+        after_resources:        $result['Resources'] = $resources;
 
-        $displayName = $object->displayName;
+        $startIndex                                     = $object->startIndex;
+        after_startIndex:        $result['start_index'] = $startIndex;
 
-        if ($displayName === null) {
-            goto after_displayName;
-        }
-
-        after_displayName:        $result['display_name'] = $displayName;
-
-        $members = $object->members;
-
-        if ($members === null) {
-            goto after_members;
-        }
-
-        static $membersSerializer0;
-
-        if ($membersSerializer0 === null) {
-            $membersSerializer0 = new SerializeArrayItems(...[]);
-        }
-
-        $members                                 = $membersSerializer0->serialize($members, $this);
-        after_members:        $result['members'] = $members;
+        $itemsPerPage                                        = $object->itemsPerPage;
+        after_itemsPerPage:        $result['items_per_page'] = $itemsPerPage;
 
         return $result;
     }
@@ -466,42 +465,51 @@ class ScimGroupId implements ObjectMapper
         return $result;
     }
 
-    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️BasicError(mixed $object): mixed
+    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️GroupResponse(mixed $object): mixed
     {
-        assert($object instanceof BasicError);
+        assert($object instanceof GroupResponse);
         $result = [];
 
-        $message = $object->message;
+        $schemas = $object->schemas;
+        static $schemasSerializer0;
 
-        if ($message === null) {
-            goto after_message;
+        if ($schemasSerializer0 === null) {
+            $schemasSerializer0 = new SerializeArrayItems(...[]);
         }
 
-        after_message:        $result['message'] = $message;
+        $schemas                                 = $schemasSerializer0->serialize($schemas, $this);
+        after_schemas:        $result['schemas'] = $schemas;
 
-        $documentationUrl = $object->documentationUrl;
+        $externalId = $object->externalId;
 
-        if ($documentationUrl === null) {
-            goto after_documentationUrl;
+        if ($externalId === null) {
+            goto after_externalId;
         }
 
-        after_documentationUrl:        $result['documentation_url'] = $documentationUrl;
+        after_externalId:        $result['external_id'] = $externalId;
 
-        $url = $object->url;
+        $displayName = $object->displayName;
 
-        if ($url === null) {
-            goto after_url;
+        if ($displayName === null) {
+            goto after_displayName;
         }
 
-        after_url:        $result['url'] = $url;
+        after_displayName:        $result['display_name'] = $displayName;
 
-        $status = $object->status;
+        $members = $object->members;
 
-        if ($status === null) {
-            goto after_status;
+        if ($members === null) {
+            goto after_members;
         }
 
-        after_status:        $result['status'] = $status;
+        static $membersSerializer0;
+
+        if ($membersSerializer0 === null) {
+            $membersSerializer0 = new SerializeArrayItems(...[]);
+        }
+
+        $members                                 = $membersSerializer0->serialize($members, $this);
+        after_members:        $result['members'] = $members;
 
         return $result;
     }
