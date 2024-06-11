@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace ApiClients\Client\GitHubEnterpriseCloud\Internal\Hydrator\WebHook;
 
-use ApiClients\Client\GitHubEnterpriseCloud\Internal\Attribute\CastUnionToType\Schema\SecretScanningLocation\Details;
+use ApiClients\Client\GitHubEnterpriseCloud\Internal\Attribute\CastUnionToType\Schema\ExemptionRequest\ExemptionRequestData;
+use ApiClients\Client\GitHubEnterpriseCloud\Internal\Attribute\CastUnionToType\Schema\ExemptionRequest\Metadata;
+use ApiClients\Client\GitHubEnterpriseCloud\Schema\EnterpriseWebhooks;
+use ApiClients\Client\GitHubEnterpriseCloud\Schema\ExemptionRequest;
+use ApiClients\Client\GitHubEnterpriseCloud\Schema\ExemptionRequestSecretScanningMetadata;
+use ApiClients\Client\GitHubEnterpriseCloud\Schema\ExemptionResponse;
 use ApiClients\Client\GitHubEnterpriseCloud\Schema\LicenseSimple;
 use ApiClients\Client\GitHubEnterpriseCloud\Schema\OrganizationSimpleWebhooks;
 use ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks;
@@ -12,13 +17,14 @@ use ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks\CustomProp
 use ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks\Permissions;
 use ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks\TemplateRepository;
 use ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks\TemplateRepository\Owner;
-use ApiClients\Client\GitHubEnterpriseCloud\Schema\SecretScanningAlertWebhook;
-use ApiClients\Client\GitHubEnterpriseCloud\Schema\SecretScanningLocation;
 use ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleInstallation;
 use ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleUser;
 use ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleUserWebhooks;
-use ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookSecretScanningAlertLocationCreated;
-use ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookSecretScanningAlertLocationCreatedFormEncoded;
+use ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestCancelled;
+use ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestCompleted;
+use ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestCreated;
+use ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestResponseDismissed;
+use ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestResponseSubmitted;
 use EventSauce\ObjectHydrator\IterableList;
 use EventSauce\ObjectHydrator\ObjectMapper;
 use EventSauce\ObjectHydrator\PropertySerializers\SerializeArrayItems;
@@ -37,7 +43,7 @@ use function is_a;
 use function is_array;
 use function is_object;
 
-class SecretScanningAlertLocation implements ObjectMapper
+class ExemptionRequestSecretScanning implements ObjectMapper
 {
     private array $hydrationStack = [];
 
@@ -55,26 +61,31 @@ class SecretScanningAlertLocation implements ObjectMapper
     public function hydrateObject(string $className, array $payload): object
     {
         return match ($className) {
-            'ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookSecretScanningAlertLocationCreated' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookSecretScanningAlertLocationCreated($payload),
-                'ApiClients\Client\GitHubEnterpriseCloud\Schema\SecretScanningAlertWebhook' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SecretScanningAlertWebhook($payload),
-                'ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleUser' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUser($payload),
+            'ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestCancelled' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestCancelled($payload),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\EnterpriseWebhooks' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️EnterpriseWebhooks($payload),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleInstallation' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleInstallation($payload),
-                'ApiClients\Client\GitHubEnterpriseCloud\Schema\SecretScanningLocation' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SecretScanningLocation($payload),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\OrganizationSimpleWebhooks' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️OrganizationSimpleWebhooks($payload),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks($payload),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\LicenseSimple' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️LicenseSimple($payload),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleUser' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUser($payload),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks\Permissions' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks⚡️Permissions($payload),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks\TemplateRepository' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks⚡️TemplateRepository($payload),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks\TemplateRepository\Owner' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks⚡️TemplateRepository⚡️Owner($payload),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks\TemplateRepository\Permissions' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks⚡️TemplateRepository⚡️Permissions($payload),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\ExemptionRequest' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequest($payload),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleUserWebhooks' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUserWebhooks($payload),
-                'ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookSecretScanningAlertLocationCreatedFormEncoded' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookSecretScanningAlertLocationCreatedFormEncoded($payload),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestCompleted' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestCompleted($payload),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestCreated' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestCreated($payload),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestResponseDismissed' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestResponseDismissed($payload),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\ExemptionResponse' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionResponse($payload),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestResponseSubmitted' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestResponseSubmitted($payload),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks\CustomProperties' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks⚡️CustomProperties($payload),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\ExemptionRequestSecretScanningMetadata' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequestSecretScanningMetadata($payload),
             default => throw UnableToHydrateObject::noHydrationDefined($className, $this->hydrationStack),
         };
     }
 
-    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookSecretScanningAlertLocationCreated(array $payload): WebhookSecretScanningAlertLocationCreated
+    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestCancelled(array $payload): WebhookExemptionRequestCancelled
     {
         $properties    = [];
         $missingFields = [];
@@ -82,7 +93,7 @@ class SecretScanningAlertLocation implements ObjectMapper
             $value = $payload['action'] ?? null;
 
             if ($value === null) {
-                $properties['action'] = null;
+                $missingFields[] = 'action';
                 goto after_action;
             }
 
@@ -90,25 +101,25 @@ class SecretScanningAlertLocation implements ObjectMapper
 
             after_action:
 
-            $value = $payload['alert'] ?? null;
+            $value = $payload['enterprise'] ?? null;
 
             if ($value === null) {
-                $missingFields[] = 'alert';
-                goto after_alert;
+                $properties['enterprise'] = null;
+                goto after_enterprise;
             }
 
             if (is_array($value)) {
                 try {
-                    $this->hydrationStack[] = 'alert';
-                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SecretScanningAlertWebhook($value);
+                    $this->hydrationStack[] = 'enterprise';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️EnterpriseWebhooks($value);
                 } finally {
                     array_pop($this->hydrationStack);
                 }
             }
 
-            $properties['alert'] = $value;
+            $properties['enterprise'] = $value;
 
-            after_alert:
+            after_enterprise:
 
             $value = $payload['installation'] ?? null;
 
@@ -129,26 +140,6 @@ class SecretScanningAlertLocation implements ObjectMapper
             $properties['installation'] = $value;
 
             after_installation:
-
-            $value = $payload['location'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'location';
-                goto after_location;
-            }
-
-            if (is_array($value)) {
-                try {
-                    $this->hydrationStack[] = 'location';
-                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SecretScanningLocation($value);
-                } finally {
-                    array_pop($this->hydrationStack);
-                }
-            }
-
-            $properties['location'] = $value;
-
-            after_location:
 
             $value = $payload['organization'] ?? null;
 
@@ -173,7 +164,7 @@ class SecretScanningAlertLocation implements ObjectMapper
             $value = $payload['repository'] ?? null;
 
             if ($value === null) {
-                $missingFields[] = 'repository';
+                $properties['repository'] = null;
                 goto after_repository;
             }
 
@@ -189,6 +180,26 @@ class SecretScanningAlertLocation implements ObjectMapper
             $properties['repository'] = $value;
 
             after_repository:
+
+            $value = $payload['exemption_request'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'exemption_request';
+                goto after_exemptionRequest;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'exemptionRequest';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequest($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['exemptionRequest'] = $value;
+
+            after_exemptionRequest:
 
             $value = $payload['sender'] ?? null;
 
@@ -210,73 +221,40 @@ class SecretScanningAlertLocation implements ObjectMapper
 
             after_sender:
         } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookSecretScanningAlertLocationCreated', $exception, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestCancelled', $exception, stack: $this->hydrationStack);
         }
 
         if (count($missingFields) > 0) {
-            throw UnableToHydrateObject::dueToMissingFields(WebhookSecretScanningAlertLocationCreated::class, $missingFields, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToMissingFields(WebhookExemptionRequestCancelled::class, $missingFields, stack: $this->hydrationStack);
         }
 
         try {
-            return new WebhookSecretScanningAlertLocationCreated(...$properties);
+            return new WebhookExemptionRequestCancelled(...$properties);
         } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookSecretScanningAlertLocationCreated', $exception, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestCancelled', $exception, stack: $this->hydrationStack);
         }
     }
 
-    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SecretScanningAlertWebhook(array $payload): SecretScanningAlertWebhook
+    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️EnterpriseWebhooks(array $payload): EnterpriseWebhooks
     {
         $properties    = [];
         $missingFields = [];
         try {
-            $value = $payload['number'] ?? null;
+            $value = $payload['description'] ?? null;
 
             if ($value === null) {
-                $properties['number'] = null;
-                goto after_number;
+                $properties['description'] = null;
+                goto after_description;
             }
 
-            $properties['number'] = $value;
+            $properties['description'] = $value;
 
-            after_number:
-
-            $value = $payload['created_at'] ?? null;
-
-            if ($value === null) {
-                $properties['createdAt'] = null;
-                goto after_createdAt;
-            }
-
-            $properties['createdAt'] = $value;
-
-            after_createdAt:
-
-            $value = $payload['updated_at'] ?? null;
-
-            if ($value === null) {
-                $properties['updatedAt'] = null;
-                goto after_updatedAt;
-            }
-
-            $properties['updatedAt'] = $value;
-
-            after_updatedAt:
-
-            $value = $payload['url'] ?? null;
-
-            if ($value === null) {
-                $properties['url'] = null;
-                goto after_url;
-            }
-
-            $properties['url'] = $value;
-
-            after_url:
+            after_description:
 
             $value = $payload['html_url'] ?? null;
 
             if ($value === null) {
-                $properties['htmlUrl'] = null;
+                $missingFields[] = 'html_url';
                 goto after_htmlUrl;
             }
 
@@ -284,196 +262,16 @@ class SecretScanningAlertLocation implements ObjectMapper
 
             after_htmlUrl:
 
-            $value = $payload['locations_url'] ?? null;
+            $value = $payload['website_url'] ?? null;
 
             if ($value === null) {
-                $properties['locationsUrl'] = null;
-                goto after_locationsUrl;
+                $properties['websiteUrl'] = null;
+                goto after_websiteUrl;
             }
 
-            $properties['locationsUrl'] = $value;
+            $properties['websiteUrl'] = $value;
 
-            after_locationsUrl:
-
-            $value = $payload['resolution'] ?? null;
-
-            if ($value === null) {
-                $properties['resolution'] = null;
-                goto after_resolution;
-            }
-
-            $properties['resolution'] = $value;
-
-            after_resolution:
-
-            $value = $payload['resolved_at'] ?? null;
-
-            if ($value === null) {
-                $properties['resolvedAt'] = null;
-                goto after_resolvedAt;
-            }
-
-            $properties['resolvedAt'] = $value;
-
-            after_resolvedAt:
-
-            $value = $payload['resolved_by'] ?? null;
-
-            if ($value === null) {
-                $properties['resolvedBy'] = null;
-                goto after_resolvedBy;
-            }
-
-            if (is_array($value)) {
-                try {
-                    $this->hydrationStack[] = 'resolvedBy';
-                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUser($value);
-                } finally {
-                    array_pop($this->hydrationStack);
-                }
-            }
-
-            $properties['resolvedBy'] = $value;
-
-            after_resolvedBy:
-
-            $value = $payload['resolution_comment'] ?? null;
-
-            if ($value === null) {
-                $properties['resolutionComment'] = null;
-                goto after_resolutionComment;
-            }
-
-            $properties['resolutionComment'] = $value;
-
-            after_resolutionComment:
-
-            $value = $payload['secret_type'] ?? null;
-
-            if ($value === null) {
-                $properties['secretType'] = null;
-                goto after_secretType;
-            }
-
-            $properties['secretType'] = $value;
-
-            after_secretType:
-
-            $value = $payload['secret_type_display_name'] ?? null;
-
-            if ($value === null) {
-                $properties['secretTypeDisplayName'] = null;
-                goto after_secretTypeDisplayName;
-            }
-
-            $properties['secretTypeDisplayName'] = $value;
-
-            after_secretTypeDisplayName:
-
-            $value = $payload['validity'] ?? null;
-
-            if ($value === null) {
-                $properties['validity'] = null;
-                goto after_validity;
-            }
-
-            $properties['validity'] = $value;
-
-            after_validity:
-
-            $value = $payload['push_protection_bypassed'] ?? null;
-
-            if ($value === null) {
-                $properties['pushProtectionBypassed'] = null;
-                goto after_pushProtectionBypassed;
-            }
-
-            $properties['pushProtectionBypassed'] = $value;
-
-            after_pushProtectionBypassed:
-
-            $value = $payload['push_protection_bypassed_by'] ?? null;
-
-            if ($value === null) {
-                $properties['pushProtectionBypassedBy'] = null;
-                goto after_pushProtectionBypassedBy;
-            }
-
-            if (is_array($value)) {
-                try {
-                    $this->hydrationStack[] = 'pushProtectionBypassedBy';
-                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUser($value);
-                } finally {
-                    array_pop($this->hydrationStack);
-                }
-            }
-
-            $properties['pushProtectionBypassedBy'] = $value;
-
-            after_pushProtectionBypassedBy:
-
-            $value = $payload['push_protection_bypassed_at'] ?? null;
-
-            if ($value === null) {
-                $properties['pushProtectionBypassedAt'] = null;
-                goto after_pushProtectionBypassedAt;
-            }
-
-            $properties['pushProtectionBypassedAt'] = $value;
-
-            after_pushProtectionBypassedAt:
-        } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\SecretScanningAlertWebhook', $exception, stack: $this->hydrationStack);
-        }
-
-        if (count($missingFields) > 0) {
-            throw UnableToHydrateObject::dueToMissingFields(SecretScanningAlertWebhook::class, $missingFields, stack: $this->hydrationStack);
-        }
-
-        try {
-            return new SecretScanningAlertWebhook(...$properties);
-        } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\SecretScanningAlertWebhook', $exception, stack: $this->hydrationStack);
-        }
-    }
-
-    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUser(array $payload): SimpleUser
-    {
-        $properties    = [];
-        $missingFields = [];
-        try {
-            $value = $payload['name'] ?? null;
-
-            if ($value === null) {
-                $properties['name'] = null;
-                goto after_name;
-            }
-
-            $properties['name'] = $value;
-
-            after_name:
-
-            $value = $payload['email'] ?? null;
-
-            if ($value === null) {
-                $properties['email'] = null;
-                goto after_email;
-            }
-
-            $properties['email'] = $value;
-
-            after_email:
-
-            $value = $payload['login'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'login';
-                goto after_login;
-            }
-
-            $properties['login'] = $value;
-
-            after_login:
+            after_websiteUrl:
 
             $value = $payload['id'] ?? null;
 
@@ -497,6 +295,50 @@ class SecretScanningAlertLocation implements ObjectMapper
 
             after_nodeId:
 
+            $value = $payload['name'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'name';
+                goto after_name;
+            }
+
+            $properties['name'] = $value;
+
+            after_name:
+
+            $value = $payload['slug'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'slug';
+                goto after_slug;
+            }
+
+            $properties['slug'] = $value;
+
+            after_slug:
+
+            $value = $payload['created_at'] ?? null;
+
+            if ($value === null) {
+                $properties['createdAt'] = null;
+                goto after_createdAt;
+            }
+
+            $properties['createdAt'] = $value;
+
+            after_createdAt:
+
+            $value = $payload['updated_at'] ?? null;
+
+            if ($value === null) {
+                $properties['updatedAt'] = null;
+                goto after_updatedAt;
+            }
+
+            $properties['updatedAt'] = $value;
+
+            after_updatedAt:
+
             $value = $payload['avatar_url'] ?? null;
 
             if ($value === null) {
@@ -507,183 +349,18 @@ class SecretScanningAlertLocation implements ObjectMapper
             $properties['avatarUrl'] = $value;
 
             after_avatarUrl:
-
-            $value = $payload['gravatar_id'] ?? null;
-
-            if ($value === null) {
-                $properties['gravatarId'] = null;
-                goto after_gravatarId;
-            }
-
-            $properties['gravatarId'] = $value;
-
-            after_gravatarId:
-
-            $value = $payload['url'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'url';
-                goto after_url;
-            }
-
-            $properties['url'] = $value;
-
-            after_url:
-
-            $value = $payload['html_url'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'html_url';
-                goto after_htmlUrl;
-            }
-
-            $properties['htmlUrl'] = $value;
-
-            after_htmlUrl:
-
-            $value = $payload['followers_url'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'followers_url';
-                goto after_followersUrl;
-            }
-
-            $properties['followersUrl'] = $value;
-
-            after_followersUrl:
-
-            $value = $payload['following_url'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'following_url';
-                goto after_followingUrl;
-            }
-
-            $properties['followingUrl'] = $value;
-
-            after_followingUrl:
-
-            $value = $payload['gists_url'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'gists_url';
-                goto after_gistsUrl;
-            }
-
-            $properties['gistsUrl'] = $value;
-
-            after_gistsUrl:
-
-            $value = $payload['starred_url'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'starred_url';
-                goto after_starredUrl;
-            }
-
-            $properties['starredUrl'] = $value;
-
-            after_starredUrl:
-
-            $value = $payload['subscriptions_url'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'subscriptions_url';
-                goto after_subscriptionsUrl;
-            }
-
-            $properties['subscriptionsUrl'] = $value;
-
-            after_subscriptionsUrl:
-
-            $value = $payload['organizations_url'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'organizations_url';
-                goto after_organizationsUrl;
-            }
-
-            $properties['organizationsUrl'] = $value;
-
-            after_organizationsUrl:
-
-            $value = $payload['repos_url'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'repos_url';
-                goto after_reposUrl;
-            }
-
-            $properties['reposUrl'] = $value;
-
-            after_reposUrl:
-
-            $value = $payload['events_url'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'events_url';
-                goto after_eventsUrl;
-            }
-
-            $properties['eventsUrl'] = $value;
-
-            after_eventsUrl:
-
-            $value = $payload['received_events_url'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'received_events_url';
-                goto after_receivedEventsUrl;
-            }
-
-            $properties['receivedEventsUrl'] = $value;
-
-            after_receivedEventsUrl:
-
-            $value = $payload['type'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'type';
-                goto after_type;
-            }
-
-            $properties['type'] = $value;
-
-            after_type:
-
-            $value = $payload['site_admin'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'site_admin';
-                goto after_siteAdmin;
-            }
-
-            $properties['siteAdmin'] = $value;
-
-            after_siteAdmin:
-
-            $value = $payload['starred_at'] ?? null;
-
-            if ($value === null) {
-                $properties['starredAt'] = null;
-                goto after_starredAt;
-            }
-
-            $properties['starredAt'] = $value;
-
-            after_starredAt:
         } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleUser', $exception, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\EnterpriseWebhooks', $exception, stack: $this->hydrationStack);
         }
 
         if (count($missingFields) > 0) {
-            throw UnableToHydrateObject::dueToMissingFields(SimpleUser::class, $missingFields, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToMissingFields(EnterpriseWebhooks::class, $missingFields, stack: $this->hydrationStack);
         }
 
         try {
-            return new SimpleUser(...$properties);
+            return new EnterpriseWebhooks(...$properties);
         } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleUser', $exception, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\EnterpriseWebhooks', $exception, stack: $this->hydrationStack);
         }
     }
 
@@ -725,60 +402,6 @@ class SecretScanningAlertLocation implements ObjectMapper
             return new SimpleInstallation(...$properties);
         } catch (Throwable $exception) {
             throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleInstallation', $exception, stack: $this->hydrationStack);
-        }
-    }
-
-    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SecretScanningLocation(array $payload): SecretScanningLocation
-    {
-        $properties    = [];
-        $missingFields = [];
-        try {
-            $value = $payload['type'] ?? null;
-
-            if ($value === null) {
-                $properties['type'] = null;
-                goto after_type;
-            }
-
-            $properties['type'] = $value;
-
-            after_type:
-
-            $value = $payload['details'] ?? null;
-
-            if ($value === null) {
-                $properties['details'] = null;
-                goto after_details;
-            }
-
-            static $detailsCaster1;
-
-            if ($detailsCaster1 === null) {
-                $detailsCaster1 = new Details(...[]);
-            }
-
-            $value = $detailsCaster1->cast($value, $this);
-
-            if ($value === null) {
-                                $properties['details'] = null;
-                goto after_details;
-            }
-
-            $properties['details'] = $value;
-
-            after_details:
-        } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\SecretScanningLocation', $exception, stack: $this->hydrationStack);
-        }
-
-        if (count($missingFields) > 0) {
-            throw UnableToHydrateObject::dueToMissingFields(SecretScanningLocation::class, $missingFields, stack: $this->hydrationStack);
-        }
-
-        try {
-            return new SecretScanningLocation(...$properties);
-        } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\SecretScanningLocation', $exception, stack: $this->hydrationStack);
         }
     }
 
@@ -2191,6 +1814,256 @@ class SecretScanningAlertLocation implements ObjectMapper
         }
     }
 
+    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUser(array $payload): SimpleUser
+    {
+        $properties    = [];
+        $missingFields = [];
+        try {
+            $value = $payload['name'] ?? null;
+
+            if ($value === null) {
+                $properties['name'] = null;
+                goto after_name;
+            }
+
+            $properties['name'] = $value;
+
+            after_name:
+
+            $value = $payload['email'] ?? null;
+
+            if ($value === null) {
+                $properties['email'] = null;
+                goto after_email;
+            }
+
+            $properties['email'] = $value;
+
+            after_email:
+
+            $value = $payload['login'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'login';
+                goto after_login;
+            }
+
+            $properties['login'] = $value;
+
+            after_login:
+
+            $value = $payload['id'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'id';
+                goto after_id;
+            }
+
+            $properties['id'] = $value;
+
+            after_id:
+
+            $value = $payload['node_id'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'node_id';
+                goto after_nodeId;
+            }
+
+            $properties['nodeId'] = $value;
+
+            after_nodeId:
+
+            $value = $payload['avatar_url'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'avatar_url';
+                goto after_avatarUrl;
+            }
+
+            $properties['avatarUrl'] = $value;
+
+            after_avatarUrl:
+
+            $value = $payload['gravatar_id'] ?? null;
+
+            if ($value === null) {
+                $properties['gravatarId'] = null;
+                goto after_gravatarId;
+            }
+
+            $properties['gravatarId'] = $value;
+
+            after_gravatarId:
+
+            $value = $payload['url'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'url';
+                goto after_url;
+            }
+
+            $properties['url'] = $value;
+
+            after_url:
+
+            $value = $payload['html_url'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'html_url';
+                goto after_htmlUrl;
+            }
+
+            $properties['htmlUrl'] = $value;
+
+            after_htmlUrl:
+
+            $value = $payload['followers_url'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'followers_url';
+                goto after_followersUrl;
+            }
+
+            $properties['followersUrl'] = $value;
+
+            after_followersUrl:
+
+            $value = $payload['following_url'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'following_url';
+                goto after_followingUrl;
+            }
+
+            $properties['followingUrl'] = $value;
+
+            after_followingUrl:
+
+            $value = $payload['gists_url'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'gists_url';
+                goto after_gistsUrl;
+            }
+
+            $properties['gistsUrl'] = $value;
+
+            after_gistsUrl:
+
+            $value = $payload['starred_url'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'starred_url';
+                goto after_starredUrl;
+            }
+
+            $properties['starredUrl'] = $value;
+
+            after_starredUrl:
+
+            $value = $payload['subscriptions_url'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'subscriptions_url';
+                goto after_subscriptionsUrl;
+            }
+
+            $properties['subscriptionsUrl'] = $value;
+
+            after_subscriptionsUrl:
+
+            $value = $payload['organizations_url'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'organizations_url';
+                goto after_organizationsUrl;
+            }
+
+            $properties['organizationsUrl'] = $value;
+
+            after_organizationsUrl:
+
+            $value = $payload['repos_url'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'repos_url';
+                goto after_reposUrl;
+            }
+
+            $properties['reposUrl'] = $value;
+
+            after_reposUrl:
+
+            $value = $payload['events_url'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'events_url';
+                goto after_eventsUrl;
+            }
+
+            $properties['eventsUrl'] = $value;
+
+            after_eventsUrl:
+
+            $value = $payload['received_events_url'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'received_events_url';
+                goto after_receivedEventsUrl;
+            }
+
+            $properties['receivedEventsUrl'] = $value;
+
+            after_receivedEventsUrl:
+
+            $value = $payload['type'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'type';
+                goto after_type;
+            }
+
+            $properties['type'] = $value;
+
+            after_type:
+
+            $value = $payload['site_admin'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'site_admin';
+                goto after_siteAdmin;
+            }
+
+            $properties['siteAdmin'] = $value;
+
+            after_siteAdmin:
+
+            $value = $payload['starred_at'] ?? null;
+
+            if ($value === null) {
+                $properties['starredAt'] = null;
+                goto after_starredAt;
+            }
+
+            $properties['starredAt'] = $value;
+
+            after_starredAt:
+        } catch (Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleUser', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(SimpleUser::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new SimpleUser(...$properties);
+        } catch (Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleUser', $exception, stack: $this->hydrationStack);
+        }
+    }
+
     private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks⚡️Permissions(array $payload): Permissions
     {
         $properties    = [];
@@ -3550,6 +3423,225 @@ class SecretScanningAlertLocation implements ObjectMapper
         }
     }
 
+    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequest(array $payload): ExemptionRequest
+    {
+        $properties    = [];
+        $missingFields = [];
+        try {
+            $value = $payload['id'] ?? null;
+
+            if ($value === null) {
+                $properties['id'] = null;
+                goto after_id;
+            }
+
+            $properties['id'] = $value;
+
+            after_id:
+
+            $value = $payload['number'] ?? null;
+
+            if ($value === null) {
+                $properties['number'] = null;
+                goto after_number;
+            }
+
+            $properties['number'] = $value;
+
+            after_number:
+
+            $value = $payload['repository_id'] ?? null;
+
+            if ($value === null) {
+                $properties['repositoryId'] = null;
+                goto after_repositoryId;
+            }
+
+            $properties['repositoryId'] = $value;
+
+            after_repositoryId:
+
+            $value = $payload['requester_id'] ?? null;
+
+            if ($value === null) {
+                $properties['requesterId'] = null;
+                goto after_requesterId;
+            }
+
+            $properties['requesterId'] = $value;
+
+            after_requesterId:
+
+            $value = $payload['requester_login'] ?? null;
+
+            if ($value === null) {
+                $properties['requesterLogin'] = null;
+                goto after_requesterLogin;
+            }
+
+            $properties['requesterLogin'] = $value;
+
+            after_requesterLogin:
+
+            $value = $payload['request_type'] ?? null;
+
+            if ($value === null) {
+                $properties['requestType'] = null;
+                goto after_requestType;
+            }
+
+            $properties['requestType'] = $value;
+
+            after_requestType:
+
+            $value = $payload['exemption_request_data'] ?? null;
+
+            if ($value === null) {
+                $properties['exemptionRequestData'] = null;
+                goto after_exemptionRequestData;
+            }
+
+            static $exemptionRequestDataCaster1;
+
+            if ($exemptionRequestDataCaster1 === null) {
+                $exemptionRequestDataCaster1 = new ExemptionRequestData(...[]);
+            }
+
+            $value = $exemptionRequestDataCaster1->cast($value, $this);
+
+            if ($value === null) {
+                                $properties['exemptionRequestData'] = null;
+                goto after_exemptionRequestData;
+            }
+
+            $properties['exemptionRequestData'] = $value;
+
+            after_exemptionRequestData:
+
+            $value = $payload['resource_identifier'] ?? null;
+
+            if ($value === null) {
+                $properties['resourceIdentifier'] = null;
+                goto after_resourceIdentifier;
+            }
+
+            $properties['resourceIdentifier'] = $value;
+
+            after_resourceIdentifier:
+
+            $value = $payload['status'] ?? null;
+
+            if ($value === null) {
+                $properties['status'] = null;
+                goto after_status;
+            }
+
+            $properties['status'] = $value;
+
+            after_status:
+
+            $value = $payload['requester_comment'] ?? null;
+
+            if ($value === null) {
+                $properties['requesterComment'] = null;
+                goto after_requesterComment;
+            }
+
+            $properties['requesterComment'] = $value;
+
+            after_requesterComment:
+
+            $value = $payload['metadata'] ?? null;
+
+            if ($value === null) {
+                $properties['metadata'] = null;
+                goto after_metadata;
+            }
+
+            static $metadataCaster1;
+
+            if ($metadataCaster1 === null) {
+                $metadataCaster1 = new Metadata(...[]);
+            }
+
+            $value = $metadataCaster1->cast($value, $this);
+
+            if ($value === null) {
+                                $properties['metadata'] = null;
+                goto after_metadata;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'metadata';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequestSecretScanningMetadata($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['metadata'] = $value;
+
+            after_metadata:
+
+            $value = $payload['expires_at'] ?? null;
+
+            if ($value === null) {
+                $properties['expiresAt'] = null;
+                goto after_expiresAt;
+            }
+
+            $properties['expiresAt'] = $value;
+
+            after_expiresAt:
+
+            $value = $payload['created_at'] ?? null;
+
+            if ($value === null) {
+                $properties['createdAt'] = null;
+                goto after_createdAt;
+            }
+
+            $properties['createdAt'] = $value;
+
+            after_createdAt:
+
+            $value = $payload['responses'] ?? null;
+
+            if ($value === null) {
+                $properties['responses'] = null;
+                goto after_responses;
+            }
+
+            $properties['responses'] = $value;
+
+            after_responses:
+
+            $value = $payload['html_url'] ?? null;
+
+            if ($value === null) {
+                $properties['htmlUrl'] = null;
+                goto after_htmlUrl;
+            }
+
+            $properties['htmlUrl'] = $value;
+
+            after_htmlUrl:
+        } catch (Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\ExemptionRequest', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(ExemptionRequest::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new ExemptionRequest(...$properties);
+        } catch (Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\ExemptionRequest', $exception, stack: $this->hydrationStack);
+        }
+    }
+
     private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUserWebhooks(array $payload): SimpleUserWebhooks
     {
         $properties    = [];
@@ -3800,33 +3892,717 @@ class SecretScanningAlertLocation implements ObjectMapper
         }
     }
 
-    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookSecretScanningAlertLocationCreatedFormEncoded(array $payload): WebhookSecretScanningAlertLocationCreatedFormEncoded
+    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestCompleted(array $payload): WebhookExemptionRequestCompleted
     {
         $properties    = [];
         $missingFields = [];
         try {
-            $value = $payload['payload'] ?? null;
+            $value = $payload['action'] ?? null;
 
             if ($value === null) {
-                $missingFields[] = 'payload';
-                goto after_payload;
+                $missingFields[] = 'action';
+                goto after_action;
             }
 
-            $properties['payload'] = $value;
+            $properties['action'] = $value;
 
-            after_payload:
+            after_action:
+
+            $value = $payload['enterprise'] ?? null;
+
+            if ($value === null) {
+                $properties['enterprise'] = null;
+                goto after_enterprise;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'enterprise';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️EnterpriseWebhooks($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['enterprise'] = $value;
+
+            after_enterprise:
+
+            $value = $payload['installation'] ?? null;
+
+            if ($value === null) {
+                $properties['installation'] = null;
+                goto after_installation;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'installation';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleInstallation($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['installation'] = $value;
+
+            after_installation:
+
+            $value = $payload['organization'] ?? null;
+
+            if ($value === null) {
+                $properties['organization'] = null;
+                goto after_organization;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'organization';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️OrganizationSimpleWebhooks($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['organization'] = $value;
+
+            after_organization:
+
+            $value = $payload['repository'] ?? null;
+
+            if ($value === null) {
+                $properties['repository'] = null;
+                goto after_repository;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'repository';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['repository'] = $value;
+
+            after_repository:
+
+            $value = $payload['exemption_request'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'exemption_request';
+                goto after_exemptionRequest;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'exemptionRequest';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequest($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['exemptionRequest'] = $value;
+
+            after_exemptionRequest:
+
+            $value = $payload['sender'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'sender';
+                goto after_sender;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'sender';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUserWebhooks($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['sender'] = $value;
+
+            after_sender:
         } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookSecretScanningAlertLocationCreatedFormEncoded', $exception, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestCompleted', $exception, stack: $this->hydrationStack);
         }
 
         if (count($missingFields) > 0) {
-            throw UnableToHydrateObject::dueToMissingFields(WebhookSecretScanningAlertLocationCreatedFormEncoded::class, $missingFields, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToMissingFields(WebhookExemptionRequestCompleted::class, $missingFields, stack: $this->hydrationStack);
         }
 
         try {
-            return new WebhookSecretScanningAlertLocationCreatedFormEncoded(...$properties);
+            return new WebhookExemptionRequestCompleted(...$properties);
         } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookSecretScanningAlertLocationCreatedFormEncoded', $exception, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestCompleted', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestCreated(array $payload): WebhookExemptionRequestCreated
+    {
+        $properties    = [];
+        $missingFields = [];
+        try {
+            $value = $payload['action'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'action';
+                goto after_action;
+            }
+
+            $properties['action'] = $value;
+
+            after_action:
+
+            $value = $payload['enterprise'] ?? null;
+
+            if ($value === null) {
+                $properties['enterprise'] = null;
+                goto after_enterprise;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'enterprise';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️EnterpriseWebhooks($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['enterprise'] = $value;
+
+            after_enterprise:
+
+            $value = $payload['installation'] ?? null;
+
+            if ($value === null) {
+                $properties['installation'] = null;
+                goto after_installation;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'installation';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleInstallation($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['installation'] = $value;
+
+            after_installation:
+
+            $value = $payload['organization'] ?? null;
+
+            if ($value === null) {
+                $properties['organization'] = null;
+                goto after_organization;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'organization';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️OrganizationSimpleWebhooks($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['organization'] = $value;
+
+            after_organization:
+
+            $value = $payload['repository'] ?? null;
+
+            if ($value === null) {
+                $properties['repository'] = null;
+                goto after_repository;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'repository';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['repository'] = $value;
+
+            after_repository:
+
+            $value = $payload['exemption_request'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'exemption_request';
+                goto after_exemptionRequest;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'exemptionRequest';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequest($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['exemptionRequest'] = $value;
+
+            after_exemptionRequest:
+
+            $value = $payload['sender'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'sender';
+                goto after_sender;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'sender';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUserWebhooks($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['sender'] = $value;
+
+            after_sender:
+        } catch (Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestCreated', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(WebhookExemptionRequestCreated::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new WebhookExemptionRequestCreated(...$properties);
+        } catch (Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestCreated', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestResponseDismissed(array $payload): WebhookExemptionRequestResponseDismissed
+    {
+        $properties    = [];
+        $missingFields = [];
+        try {
+            $value = $payload['action'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'action';
+                goto after_action;
+            }
+
+            $properties['action'] = $value;
+
+            after_action:
+
+            $value = $payload['enterprise'] ?? null;
+
+            if ($value === null) {
+                $properties['enterprise'] = null;
+                goto after_enterprise;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'enterprise';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️EnterpriseWebhooks($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['enterprise'] = $value;
+
+            after_enterprise:
+
+            $value = $payload['installation'] ?? null;
+
+            if ($value === null) {
+                $properties['installation'] = null;
+                goto after_installation;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'installation';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleInstallation($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['installation'] = $value;
+
+            after_installation:
+
+            $value = $payload['organization'] ?? null;
+
+            if ($value === null) {
+                $properties['organization'] = null;
+                goto after_organization;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'organization';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️OrganizationSimpleWebhooks($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['organization'] = $value;
+
+            after_organization:
+
+            $value = $payload['repository'] ?? null;
+
+            if ($value === null) {
+                $properties['repository'] = null;
+                goto after_repository;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'repository';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['repository'] = $value;
+
+            after_repository:
+
+            $value = $payload['exemption_request'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'exemption_request';
+                goto after_exemptionRequest;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'exemptionRequest';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequest($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['exemptionRequest'] = $value;
+
+            after_exemptionRequest:
+
+            $value = $payload['exemption_response'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'exemption_response';
+                goto after_exemptionResponse;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'exemptionResponse';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionResponse($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['exemptionResponse'] = $value;
+
+            after_exemptionResponse:
+
+            $value = $payload['sender'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'sender';
+                goto after_sender;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'sender';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUserWebhooks($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['sender'] = $value;
+
+            after_sender:
+        } catch (Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestResponseDismissed', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(WebhookExemptionRequestResponseDismissed::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new WebhookExemptionRequestResponseDismissed(...$properties);
+        } catch (Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestResponseDismissed', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionResponse(array $payload): ExemptionResponse
+    {
+        $properties    = [];
+        $missingFields = [];
+        try {
+            $value = $payload['id'] ?? null;
+
+            if ($value === null) {
+                $properties['id'] = null;
+                goto after_id;
+            }
+
+            $properties['id'] = $value;
+
+            after_id:
+
+            $value = $payload['reviewer_id'] ?? null;
+
+            if ($value === null) {
+                $properties['reviewerId'] = null;
+                goto after_reviewerId;
+            }
+
+            $properties['reviewerId'] = $value;
+
+            after_reviewerId:
+
+            $value = $payload['reviewer_login'] ?? null;
+
+            if ($value === null) {
+                $properties['reviewerLogin'] = null;
+                goto after_reviewerLogin;
+            }
+
+            $properties['reviewerLogin'] = $value;
+
+            after_reviewerLogin:
+
+            $value = $payload['status'] ?? null;
+
+            if ($value === null) {
+                $properties['status'] = null;
+                goto after_status;
+            }
+
+            $properties['status'] = $value;
+
+            after_status:
+
+            $value = $payload['created_at'] ?? null;
+
+            if ($value === null) {
+                $properties['createdAt'] = null;
+                goto after_createdAt;
+            }
+
+            $properties['createdAt'] = $value;
+
+            after_createdAt:
+        } catch (Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\ExemptionResponse', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(ExemptionResponse::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new ExemptionResponse(...$properties);
+        } catch (Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\ExemptionResponse', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestResponseSubmitted(array $payload): WebhookExemptionRequestResponseSubmitted
+    {
+        $properties    = [];
+        $missingFields = [];
+        try {
+            $value = $payload['action'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'action';
+                goto after_action;
+            }
+
+            $properties['action'] = $value;
+
+            after_action:
+
+            $value = $payload['enterprise'] ?? null;
+
+            if ($value === null) {
+                $properties['enterprise'] = null;
+                goto after_enterprise;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'enterprise';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️EnterpriseWebhooks($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['enterprise'] = $value;
+
+            after_enterprise:
+
+            $value = $payload['installation'] ?? null;
+
+            if ($value === null) {
+                $properties['installation'] = null;
+                goto after_installation;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'installation';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleInstallation($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['installation'] = $value;
+
+            after_installation:
+
+            $value = $payload['organization'] ?? null;
+
+            if ($value === null) {
+                $properties['organization'] = null;
+                goto after_organization;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'organization';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️OrganizationSimpleWebhooks($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['organization'] = $value;
+
+            after_organization:
+
+            $value = $payload['repository'] ?? null;
+
+            if ($value === null) {
+                $properties['repository'] = null;
+                goto after_repository;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'repository';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['repository'] = $value;
+
+            after_repository:
+
+            $value = $payload['exemption_request'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'exemption_request';
+                goto after_exemptionRequest;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'exemptionRequest';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequest($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['exemptionRequest'] = $value;
+
+            after_exemptionRequest:
+
+            $value = $payload['exemption_response'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'exemption_response';
+                goto after_exemptionResponse;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'exemptionResponse';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionResponse($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['exemptionResponse'] = $value;
+
+            after_exemptionResponse:
+
+            $value = $payload['sender'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'sender';
+                goto after_sender;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'sender';
+                    $value                  = $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUserWebhooks($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['sender'] = $value;
+
+            after_sender:
+        } catch (Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestResponseSubmitted', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(WebhookExemptionRequestResponseSubmitted::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new WebhookExemptionRequestResponseSubmitted(...$properties);
+        } catch (Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestResponseSubmitted', $exception, stack: $this->hydrationStack);
         }
     }
 
@@ -3847,6 +4623,47 @@ class SecretScanningAlertLocation implements ObjectMapper
             return new CustomProperties(...$properties);
         } catch (Throwable $exception) {
             throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks\CustomProperties', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequestSecretScanningMetadata(array $payload): ExemptionRequestSecretScanningMetadata
+    {
+        $properties    = [];
+        $missingFields = [];
+        try {
+            $value = $payload['label'] ?? null;
+
+            if ($value === null) {
+                $properties['label'] = null;
+                goto after_label;
+            }
+
+            $properties['label'] = $value;
+
+            after_label:
+
+            $value = $payload['reason'] ?? null;
+
+            if ($value === null) {
+                $properties['reason'] = null;
+                goto after_reason;
+            }
+
+            $properties['reason'] = $value;
+
+            after_reason:
+        } catch (Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\ExemptionRequestSecretScanningMetadata', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(ExemptionRequestSecretScanningMetadata::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new ExemptionRequestSecretScanningMetadata(...$properties);
+        } catch (Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\ExemptionRequestSecretScanningMetadata', $exception, stack: $this->hydrationStack);
         }
     }
 
@@ -3881,20 +4698,24 @@ class SecretScanningAlertLocation implements ObjectMapper
                 'DateTime' => $this->serializeValueDateTime($object),
                 'DateTimeImmutable' => $this->serializeValueDateTimeImmutable($object),
                 'DateTimeInterface' => $this->serializeValueDateTimeInterface($object),
-                'ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookSecretScanningAlertLocationCreated' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookSecretScanningAlertLocationCreated($object),
-                'ApiClients\Client\GitHubEnterpriseCloud\Schema\SecretScanningAlertWebhook' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SecretScanningAlertWebhook($object),
-                'ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleUser' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUser($object),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestCancelled' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestCancelled($object),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\EnterpriseWebhooks' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️EnterpriseWebhooks($object),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleInstallation' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleInstallation($object),
-                'ApiClients\Client\GitHubEnterpriseCloud\Schema\SecretScanningLocation' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SecretScanningLocation($object),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\OrganizationSimpleWebhooks' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️OrganizationSimpleWebhooks($object),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks($object),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\LicenseSimple' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️LicenseSimple($object),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleUser' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUser($object),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks\Permissions' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks⚡️Permissions($object),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks\TemplateRepository' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks⚡️TemplateRepository($object),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks\TemplateRepository\Owner' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks⚡️TemplateRepository⚡️Owner($object),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\RepositoryWebhooks\TemplateRepository\Permissions' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks⚡️TemplateRepository⚡️Permissions($object),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\ExemptionRequest' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequest($object),
                 'ApiClients\Client\GitHubEnterpriseCloud\Schema\SimpleUserWebhooks' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUserWebhooks($object),
-                'ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookSecretScanningAlertLocationCreatedFormEncoded' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookSecretScanningAlertLocationCreatedFormEncoded($object),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestCompleted' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestCompleted($object),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestCreated' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestCreated($object),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestResponseDismissed' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestResponseDismissed($object),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\ExemptionResponse' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionResponse($object),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\WebhookExemptionRequestResponseSubmitted' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestResponseSubmitted($object),
                 default => throw new LogicException('No serialization defined for $className'),
             };
         } catch (Throwable $exception) {
@@ -3957,22 +4778,22 @@ class SecretScanningAlertLocation implements ObjectMapper
         return $serializer->serialize($value, $this);
     }
 
-    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookSecretScanningAlertLocationCreated(mixed $object): mixed
+    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestCancelled(mixed $object): mixed
     {
-        assert($object instanceof WebhookSecretScanningAlertLocationCreated);
+        assert($object instanceof WebhookExemptionRequestCancelled);
         $result = [];
 
-        $action = $object->action;
-
-        if ($action === null) {
-            goto after_action;
-        }
-
+        $action                                = $object->action;
         after_action:        $result['action'] = $action;
 
-        $alert                               = $object->alert;
-        $alert                               = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SecretScanningAlertWebhook($alert);
-        after_alert:        $result['alert'] = $alert;
+        $enterprise = $object->enterprise;
+
+        if ($enterprise === null) {
+            goto after_enterprise;
+        }
+
+        $enterprise                                    = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️EnterpriseWebhooks($enterprise);
+        after_enterprise:        $result['enterprise'] = $enterprise;
 
         $installation = $object->installation;
 
@@ -3983,10 +4804,6 @@ class SecretScanningAlertLocation implements ObjectMapper
         $installation                                      = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleInstallation($installation);
         after_installation:        $result['installation'] = $installation;
 
-        $location                                  = $object->location;
-        $location                                  = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SecretScanningLocation($location);
-        after_location:        $result['location'] = $location;
-
         $organization = $object->organization;
 
         if ($organization === null) {
@@ -3996,9 +4813,18 @@ class SecretScanningAlertLocation implements ObjectMapper
         $organization                                      = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️OrganizationSimpleWebhooks($organization);
         after_organization:        $result['organization'] = $organization;
 
-        $repository                                    = $object->repository;
+        $repository = $object->repository;
+
+        if ($repository === null) {
+            goto after_repository;
+        }
+
         $repository                                    = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks($repository);
         after_repository:        $result['repository'] = $repository;
+
+        $exemptionRequest                                           = $object->exemptionRequest;
+        $exemptionRequest                                           = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequest($exemptionRequest);
+        after_exemptionRequest:        $result['exemption_request'] = $exemptionRequest;
 
         $sender                                = $object->sender;
         $sender                                = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUserWebhooks($sender);
@@ -4007,18 +4833,41 @@ class SecretScanningAlertLocation implements ObjectMapper
         return $result;
     }
 
-    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SecretScanningAlertWebhook(mixed $object): mixed
+    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️EnterpriseWebhooks(mixed $object): mixed
     {
-        assert($object instanceof SecretScanningAlertWebhook);
+        assert($object instanceof EnterpriseWebhooks);
         $result = [];
 
-        $number = $object->number;
+        $description = $object->description;
 
-        if ($number === null) {
-            goto after_number;
+        if ($description === null) {
+            goto after_description;
         }
 
-        after_number:        $result['number'] = $number;
+        after_description:        $result['description'] = $description;
+
+        $htmlUrl                                  = $object->htmlUrl;
+        after_htmlUrl:        $result['html_url'] = $htmlUrl;
+
+        $websiteUrl = $object->websiteUrl;
+
+        if ($websiteUrl === null) {
+            goto after_websiteUrl;
+        }
+
+        after_websiteUrl:        $result['website_url'] = $websiteUrl;
+
+        $id                            = $object->id;
+        after_id:        $result['id'] = $id;
+
+        $nodeId                                 = $object->nodeId;
+        after_nodeId:        $result['node_id'] = $nodeId;
+
+        $name                              = $object->name;
+        after_name:        $result['name'] = $name;
+
+        $slug                              = $object->slug;
+        after_slug:        $result['slug'] = $slug;
 
         $createdAt = $object->createdAt;
 
@@ -4036,202 +4885,8 @@ class SecretScanningAlertLocation implements ObjectMapper
 
         after_updatedAt:        $result['updated_at'] = $updatedAt;
 
-        $url = $object->url;
-
-        if ($url === null) {
-            goto after_url;
-        }
-
-        after_url:        $result['url'] = $url;
-
-        $htmlUrl = $object->htmlUrl;
-
-        if ($htmlUrl === null) {
-            goto after_htmlUrl;
-        }
-
-        after_htmlUrl:        $result['html_url'] = $htmlUrl;
-
-        $locationsUrl = $object->locationsUrl;
-
-        if ($locationsUrl === null) {
-            goto after_locationsUrl;
-        }
-
-        after_locationsUrl:        $result['locations_url'] = $locationsUrl;
-
-        $resolution = $object->resolution;
-
-        if ($resolution === null) {
-            goto after_resolution;
-        }
-
-        after_resolution:        $result['resolution'] = $resolution;
-
-        $resolvedAt = $object->resolvedAt;
-
-        if ($resolvedAt === null) {
-            goto after_resolvedAt;
-        }
-
-        after_resolvedAt:        $result['resolved_at'] = $resolvedAt;
-
-        $resolvedBy = $object->resolvedBy;
-
-        if ($resolvedBy === null) {
-            goto after_resolvedBy;
-        }
-
-        $resolvedBy                                     = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUser($resolvedBy);
-        after_resolvedBy:        $result['resolved_by'] = $resolvedBy;
-
-        $resolutionComment = $object->resolutionComment;
-
-        if ($resolutionComment === null) {
-            goto after_resolutionComment;
-        }
-
-        after_resolutionComment:        $result['resolution_comment'] = $resolutionComment;
-
-        $secretType = $object->secretType;
-
-        if ($secretType === null) {
-            goto after_secretType;
-        }
-
-        after_secretType:        $result['secret_type'] = $secretType;
-
-        $secretTypeDisplayName = $object->secretTypeDisplayName;
-
-        if ($secretTypeDisplayName === null) {
-            goto after_secretTypeDisplayName;
-        }
-
-        after_secretTypeDisplayName:        $result['secret_type_display_name'] = $secretTypeDisplayName;
-
-        $validity = $object->validity;
-
-        if ($validity === null) {
-            goto after_validity;
-        }
-
-        after_validity:        $result['validity'] = $validity;
-
-        $pushProtectionBypassed = $object->pushProtectionBypassed;
-
-        if ($pushProtectionBypassed === null) {
-            goto after_pushProtectionBypassed;
-        }
-
-        after_pushProtectionBypassed:        $result['push_protection_bypassed'] = $pushProtectionBypassed;
-
-        $pushProtectionBypassedBy = $object->pushProtectionBypassedBy;
-
-        if ($pushProtectionBypassedBy === null) {
-            goto after_pushProtectionBypassedBy;
-        }
-
-        $pushProtectionBypassedBy                                                     = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUser($pushProtectionBypassedBy);
-        after_pushProtectionBypassedBy:        $result['push_protection_bypassed_by'] = $pushProtectionBypassedBy;
-
-        $pushProtectionBypassedAt = $object->pushProtectionBypassedAt;
-
-        if ($pushProtectionBypassedAt === null) {
-            goto after_pushProtectionBypassedAt;
-        }
-
-        after_pushProtectionBypassedAt:        $result['push_protection_bypassed_at'] = $pushProtectionBypassedAt;
-
-        return $result;
-    }
-
-    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUser(mixed $object): mixed
-    {
-        assert($object instanceof SimpleUser);
-        $result = [];
-
-        $name = $object->name;
-
-        if ($name === null) {
-            goto after_name;
-        }
-
-        after_name:        $result['name'] = $name;
-
-        $email = $object->email;
-
-        if ($email === null) {
-            goto after_email;
-        }
-
-        after_email:        $result['email'] = $email;
-
-        $login                               = $object->login;
-        after_login:        $result['login'] = $login;
-
-        $id                            = $object->id;
-        after_id:        $result['id'] = $id;
-
-        $nodeId                                 = $object->nodeId;
-        after_nodeId:        $result['node_id'] = $nodeId;
-
         $avatarUrl                                    = $object->avatarUrl;
         after_avatarUrl:        $result['avatar_url'] = $avatarUrl;
-
-        $gravatarId = $object->gravatarId;
-
-        if ($gravatarId === null) {
-            goto after_gravatarId;
-        }
-
-        after_gravatarId:        $result['gravatar_id'] = $gravatarId;
-
-        $url                             = $object->url;
-        after_url:        $result['url'] = $url;
-
-        $htmlUrl                                  = $object->htmlUrl;
-        after_htmlUrl:        $result['html_url'] = $htmlUrl;
-
-        $followersUrl                                       = $object->followersUrl;
-        after_followersUrl:        $result['followers_url'] = $followersUrl;
-
-        $followingUrl                                       = $object->followingUrl;
-        after_followingUrl:        $result['following_url'] = $followingUrl;
-
-        $gistsUrl                                   = $object->gistsUrl;
-        after_gistsUrl:        $result['gists_url'] = $gistsUrl;
-
-        $starredUrl                                     = $object->starredUrl;
-        after_starredUrl:        $result['starred_url'] = $starredUrl;
-
-        $subscriptionsUrl                                           = $object->subscriptionsUrl;
-        after_subscriptionsUrl:        $result['subscriptions_url'] = $subscriptionsUrl;
-
-        $organizationsUrl                                           = $object->organizationsUrl;
-        after_organizationsUrl:        $result['organizations_url'] = $organizationsUrl;
-
-        $reposUrl                                   = $object->reposUrl;
-        after_reposUrl:        $result['repos_url'] = $reposUrl;
-
-        $eventsUrl                                    = $object->eventsUrl;
-        after_eventsUrl:        $result['events_url'] = $eventsUrl;
-
-        $receivedEventsUrl                                             = $object->receivedEventsUrl;
-        after_receivedEventsUrl:        $result['received_events_url'] = $receivedEventsUrl;
-
-        $type                              = $object->type;
-        after_type:        $result['type'] = $type;
-
-        $siteAdmin                                    = $object->siteAdmin;
-        after_siteAdmin:        $result['site_admin'] = $siteAdmin;
-
-        $starredAt = $object->starredAt;
-
-        if ($starredAt === null) {
-            goto after_starredAt;
-        }
-
-        after_starredAt:        $result['starred_at'] = $starredAt;
 
         return $result;
     }
@@ -4246,34 +4901,6 @@ class SecretScanningAlertLocation implements ObjectMapper
 
         $nodeId                                 = $object->nodeId;
         after_nodeId:        $result['node_id'] = $nodeId;
-
-        return $result;
-    }
-
-    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SecretScanningLocation(mixed $object): mixed
-    {
-        assert($object instanceof SecretScanningLocation);
-        $result = [];
-
-        $type = $object->type;
-
-        if ($type === null) {
-            goto after_type;
-        }
-
-        after_type:        $result['type'] = $type;
-
-        $details = $object->details;
-
-        if ($details === null) {
-            goto after_details;
-        }
-
-        if (is_object($details)) {
-            $details = $this->serializeObject($details);
-        }
-
-        after_details:        $result['details'] = $details;
 
         return $result;
     }
@@ -4860,6 +5487,97 @@ class SecretScanningAlertLocation implements ObjectMapper
         }
 
         after_htmlUrl:        $result['html_url'] = $htmlUrl;
+
+        return $result;
+    }
+
+    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUser(mixed $object): mixed
+    {
+        assert($object instanceof SimpleUser);
+        $result = [];
+
+        $name = $object->name;
+
+        if ($name === null) {
+            goto after_name;
+        }
+
+        after_name:        $result['name'] = $name;
+
+        $email = $object->email;
+
+        if ($email === null) {
+            goto after_email;
+        }
+
+        after_email:        $result['email'] = $email;
+
+        $login                               = $object->login;
+        after_login:        $result['login'] = $login;
+
+        $id                            = $object->id;
+        after_id:        $result['id'] = $id;
+
+        $nodeId                                 = $object->nodeId;
+        after_nodeId:        $result['node_id'] = $nodeId;
+
+        $avatarUrl                                    = $object->avatarUrl;
+        after_avatarUrl:        $result['avatar_url'] = $avatarUrl;
+
+        $gravatarId = $object->gravatarId;
+
+        if ($gravatarId === null) {
+            goto after_gravatarId;
+        }
+
+        after_gravatarId:        $result['gravatar_id'] = $gravatarId;
+
+        $url                             = $object->url;
+        after_url:        $result['url'] = $url;
+
+        $htmlUrl                                  = $object->htmlUrl;
+        after_htmlUrl:        $result['html_url'] = $htmlUrl;
+
+        $followersUrl                                       = $object->followersUrl;
+        after_followersUrl:        $result['followers_url'] = $followersUrl;
+
+        $followingUrl                                       = $object->followingUrl;
+        after_followingUrl:        $result['following_url'] = $followingUrl;
+
+        $gistsUrl                                   = $object->gistsUrl;
+        after_gistsUrl:        $result['gists_url'] = $gistsUrl;
+
+        $starredUrl                                     = $object->starredUrl;
+        after_starredUrl:        $result['starred_url'] = $starredUrl;
+
+        $subscriptionsUrl                                           = $object->subscriptionsUrl;
+        after_subscriptionsUrl:        $result['subscriptions_url'] = $subscriptionsUrl;
+
+        $organizationsUrl                                           = $object->organizationsUrl;
+        after_organizationsUrl:        $result['organizations_url'] = $organizationsUrl;
+
+        $reposUrl                                   = $object->reposUrl;
+        after_reposUrl:        $result['repos_url'] = $reposUrl;
+
+        $eventsUrl                                    = $object->eventsUrl;
+        after_eventsUrl:        $result['events_url'] = $eventsUrl;
+
+        $receivedEventsUrl                                             = $object->receivedEventsUrl;
+        after_receivedEventsUrl:        $result['received_events_url'] = $receivedEventsUrl;
+
+        $type                              = $object->type;
+        after_type:        $result['type'] = $type;
+
+        $siteAdmin                                    = $object->siteAdmin;
+        after_siteAdmin:        $result['site_admin'] = $siteAdmin;
+
+        $starredAt = $object->starredAt;
+
+        if ($starredAt === null) {
+            goto after_starredAt;
+        }
+
+        after_starredAt:        $result['starred_at'] = $starredAt;
 
         return $result;
     }
@@ -5810,6 +6528,146 @@ class SecretScanningAlertLocation implements ObjectMapper
         return $result;
     }
 
+    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequest(mixed $object): mixed
+    {
+        assert($object instanceof ExemptionRequest);
+        $result = [];
+
+        $id = $object->id;
+
+        if ($id === null) {
+            goto after_id;
+        }
+
+        after_id:        $result['id'] = $id;
+
+        $number = $object->number;
+
+        if ($number === null) {
+            goto after_number;
+        }
+
+        after_number:        $result['number'] = $number;
+
+        $repositoryId = $object->repositoryId;
+
+        if ($repositoryId === null) {
+            goto after_repositoryId;
+        }
+
+        after_repositoryId:        $result['repository_id'] = $repositoryId;
+
+        $requesterId = $object->requesterId;
+
+        if ($requesterId === null) {
+            goto after_requesterId;
+        }
+
+        after_requesterId:        $result['requester_id'] = $requesterId;
+
+        $requesterLogin = $object->requesterLogin;
+
+        if ($requesterLogin === null) {
+            goto after_requesterLogin;
+        }
+
+        after_requesterLogin:        $result['requester_login'] = $requesterLogin;
+
+        $requestType = $object->requestType;
+
+        if ($requestType === null) {
+            goto after_requestType;
+        }
+
+        after_requestType:        $result['request_type'] = $requestType;
+
+        $exemptionRequestData = $object->exemptionRequestData;
+
+        if ($exemptionRequestData === null) {
+            goto after_exemptionRequestData;
+        }
+
+        if (is_object($exemptionRequestData)) {
+            $exemptionRequestData = $this->serializeObject($exemptionRequestData);
+        }
+
+        after_exemptionRequestData:        $result['exemption_request_data'] = $exemptionRequestData;
+
+        $resourceIdentifier = $object->resourceIdentifier;
+
+        if ($resourceIdentifier === null) {
+            goto after_resourceIdentifier;
+        }
+
+        after_resourceIdentifier:        $result['resource_identifier'] = $resourceIdentifier;
+
+        $status = $object->status;
+
+        if ($status === null) {
+            goto after_status;
+        }
+
+        after_status:        $result['status'] = $status;
+
+        $requesterComment = $object->requesterComment;
+
+        if ($requesterComment === null) {
+            goto after_requesterComment;
+        }
+
+        after_requesterComment:        $result['requester_comment'] = $requesterComment;
+
+        $metadata = $object->metadata;
+
+        if ($metadata === null) {
+            goto after_metadata;
+        }
+
+        $metadata                                  = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequestSecretScanningMetadata($metadata);
+        after_metadata:        $result['metadata'] = $metadata;
+
+        $expiresAt = $object->expiresAt;
+
+        if ($expiresAt === null) {
+            goto after_expiresAt;
+        }
+
+        after_expiresAt:        $result['expires_at'] = $expiresAt;
+
+        $createdAt = $object->createdAt;
+
+        if ($createdAt === null) {
+            goto after_createdAt;
+        }
+
+        after_createdAt:        $result['created_at'] = $createdAt;
+
+        $responses = $object->responses;
+
+        if ($responses === null) {
+            goto after_responses;
+        }
+
+        static $responsesSerializer0;
+
+        if ($responsesSerializer0 === null) {
+            $responsesSerializer0 = new SerializeArrayItems(...[]);
+        }
+
+        $responses                                   = $responsesSerializer0->serialize($responses, $this);
+        after_responses:        $result['responses'] = $responses;
+
+        $htmlUrl = $object->htmlUrl;
+
+        if ($htmlUrl === null) {
+            goto after_htmlUrl;
+        }
+
+        after_htmlUrl:        $result['html_url'] = $htmlUrl;
+
+        return $result;
+    }
+
     private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUserWebhooks(mixed $object): mixed
     {
         assert($object instanceof SimpleUserWebhooks);
@@ -5901,13 +6759,278 @@ class SecretScanningAlertLocation implements ObjectMapper
         return $result;
     }
 
-    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookSecretScanningAlertLocationCreatedFormEncoded(mixed $object): mixed
+    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestCompleted(mixed $object): mixed
     {
-        assert($object instanceof WebhookSecretScanningAlertLocationCreatedFormEncoded);
+        assert($object instanceof WebhookExemptionRequestCompleted);
         $result = [];
 
-        $payload                                 = $object->payload;
-        after_payload:        $result['payload'] = $payload;
+        $action                                = $object->action;
+        after_action:        $result['action'] = $action;
+
+        $enterprise = $object->enterprise;
+
+        if ($enterprise === null) {
+            goto after_enterprise;
+        }
+
+        $enterprise                                    = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️EnterpriseWebhooks($enterprise);
+        after_enterprise:        $result['enterprise'] = $enterprise;
+
+        $installation = $object->installation;
+
+        if ($installation === null) {
+            goto after_installation;
+        }
+
+        $installation                                      = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleInstallation($installation);
+        after_installation:        $result['installation'] = $installation;
+
+        $organization = $object->organization;
+
+        if ($organization === null) {
+            goto after_organization;
+        }
+
+        $organization                                      = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️OrganizationSimpleWebhooks($organization);
+        after_organization:        $result['organization'] = $organization;
+
+        $repository = $object->repository;
+
+        if ($repository === null) {
+            goto after_repository;
+        }
+
+        $repository                                    = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks($repository);
+        after_repository:        $result['repository'] = $repository;
+
+        $exemptionRequest                                           = $object->exemptionRequest;
+        $exemptionRequest                                           = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequest($exemptionRequest);
+        after_exemptionRequest:        $result['exemption_request'] = $exemptionRequest;
+
+        $sender                                = $object->sender;
+        $sender                                = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUserWebhooks($sender);
+        after_sender:        $result['sender'] = $sender;
+
+        return $result;
+    }
+
+    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestCreated(mixed $object): mixed
+    {
+        assert($object instanceof WebhookExemptionRequestCreated);
+        $result = [];
+
+        $action                                = $object->action;
+        after_action:        $result['action'] = $action;
+
+        $enterprise = $object->enterprise;
+
+        if ($enterprise === null) {
+            goto after_enterprise;
+        }
+
+        $enterprise                                    = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️EnterpriseWebhooks($enterprise);
+        after_enterprise:        $result['enterprise'] = $enterprise;
+
+        $installation = $object->installation;
+
+        if ($installation === null) {
+            goto after_installation;
+        }
+
+        $installation                                      = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleInstallation($installation);
+        after_installation:        $result['installation'] = $installation;
+
+        $organization = $object->organization;
+
+        if ($organization === null) {
+            goto after_organization;
+        }
+
+        $organization                                      = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️OrganizationSimpleWebhooks($organization);
+        after_organization:        $result['organization'] = $organization;
+
+        $repository = $object->repository;
+
+        if ($repository === null) {
+            goto after_repository;
+        }
+
+        $repository                                    = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks($repository);
+        after_repository:        $result['repository'] = $repository;
+
+        $exemptionRequest                                           = $object->exemptionRequest;
+        $exemptionRequest                                           = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequest($exemptionRequest);
+        after_exemptionRequest:        $result['exemption_request'] = $exemptionRequest;
+
+        $sender                                = $object->sender;
+        $sender                                = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUserWebhooks($sender);
+        after_sender:        $result['sender'] = $sender;
+
+        return $result;
+    }
+
+    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestResponseDismissed(mixed $object): mixed
+    {
+        assert($object instanceof WebhookExemptionRequestResponseDismissed);
+        $result = [];
+
+        $action                                = $object->action;
+        after_action:        $result['action'] = $action;
+
+        $enterprise = $object->enterprise;
+
+        if ($enterprise === null) {
+            goto after_enterprise;
+        }
+
+        $enterprise                                    = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️EnterpriseWebhooks($enterprise);
+        after_enterprise:        $result['enterprise'] = $enterprise;
+
+        $installation = $object->installation;
+
+        if ($installation === null) {
+            goto after_installation;
+        }
+
+        $installation                                      = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleInstallation($installation);
+        after_installation:        $result['installation'] = $installation;
+
+        $organization = $object->organization;
+
+        if ($organization === null) {
+            goto after_organization;
+        }
+
+        $organization                                      = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️OrganizationSimpleWebhooks($organization);
+        after_organization:        $result['organization'] = $organization;
+
+        $repository = $object->repository;
+
+        if ($repository === null) {
+            goto after_repository;
+        }
+
+        $repository                                    = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks($repository);
+        after_repository:        $result['repository'] = $repository;
+
+        $exemptionRequest                                           = $object->exemptionRequest;
+        $exemptionRequest                                           = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequest($exemptionRequest);
+        after_exemptionRequest:        $result['exemption_request'] = $exemptionRequest;
+
+        $exemptionResponse                                            = $object->exemptionResponse;
+        $exemptionResponse                                            = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionResponse($exemptionResponse);
+        after_exemptionResponse:        $result['exemption_response'] = $exemptionResponse;
+
+        $sender                                = $object->sender;
+        $sender                                = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUserWebhooks($sender);
+        after_sender:        $result['sender'] = $sender;
+
+        return $result;
+    }
+
+    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionResponse(mixed $object): mixed
+    {
+        assert($object instanceof ExemptionResponse);
+        $result = [];
+
+        $id = $object->id;
+
+        if ($id === null) {
+            goto after_id;
+        }
+
+        after_id:        $result['id'] = $id;
+
+        $reviewerId = $object->reviewerId;
+
+        if ($reviewerId === null) {
+            goto after_reviewerId;
+        }
+
+        after_reviewerId:        $result['reviewer_id'] = $reviewerId;
+
+        $reviewerLogin = $object->reviewerLogin;
+
+        if ($reviewerLogin === null) {
+            goto after_reviewerLogin;
+        }
+
+        after_reviewerLogin:        $result['reviewer_login'] = $reviewerLogin;
+
+        $status = $object->status;
+
+        if ($status === null) {
+            goto after_status;
+        }
+
+        after_status:        $result['status'] = $status;
+
+        $createdAt = $object->createdAt;
+
+        if ($createdAt === null) {
+            goto after_createdAt;
+        }
+
+        after_createdAt:        $result['created_at'] = $createdAt;
+
+        return $result;
+    }
+
+    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️WebhookExemptionRequestResponseSubmitted(mixed $object): mixed
+    {
+        assert($object instanceof WebhookExemptionRequestResponseSubmitted);
+        $result = [];
+
+        $action                                = $object->action;
+        after_action:        $result['action'] = $action;
+
+        $enterprise = $object->enterprise;
+
+        if ($enterprise === null) {
+            goto after_enterprise;
+        }
+
+        $enterprise                                    = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️EnterpriseWebhooks($enterprise);
+        after_enterprise:        $result['enterprise'] = $enterprise;
+
+        $installation = $object->installation;
+
+        if ($installation === null) {
+            goto after_installation;
+        }
+
+        $installation                                      = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleInstallation($installation);
+        after_installation:        $result['installation'] = $installation;
+
+        $organization = $object->organization;
+
+        if ($organization === null) {
+            goto after_organization;
+        }
+
+        $organization                                      = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️OrganizationSimpleWebhooks($organization);
+        after_organization:        $result['organization'] = $organization;
+
+        $repository = $object->repository;
+
+        if ($repository === null) {
+            goto after_repository;
+        }
+
+        $repository                                    = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️RepositoryWebhooks($repository);
+        after_repository:        $result['repository'] = $repository;
+
+        $exemptionRequest                                           = $object->exemptionRequest;
+        $exemptionRequest                                           = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionRequest($exemptionRequest);
+        after_exemptionRequest:        $result['exemption_request'] = $exemptionRequest;
+
+        $exemptionResponse                                            = $object->exemptionResponse;
+        $exemptionResponse                                            = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️ExemptionResponse($exemptionResponse);
+        after_exemptionResponse:        $result['exemption_response'] = $exemptionResponse;
+
+        $sender                                = $object->sender;
+        $sender                                = $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️SimpleUserWebhooks($sender);
+        after_sender:        $result['sender'] = $sender;
 
         return $result;
     }

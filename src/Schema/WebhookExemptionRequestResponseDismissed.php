@@ -5,468 +5,25 @@ declare(strict_types=1);
 namespace ApiClients\Client\GitHubEnterpriseCloud\Schema;
 
 use ApiClients\Client\GitHubEnterpriseCloud\Schema;
+use EventSauce\ObjectHydrator\MapFrom;
 
-final readonly class WebhookSecretScanningAlertValidated
+final readonly class WebhookExemptionRequestResponseDismissed
 {
     public const SCHEMA_JSON         = '{
-    "title": "secret_scanning_alert validated event",
+    "title": "Exemption response dismissed event",
     "required": [
         "action",
-        "alert",
-        "repository"
+        "exemption_request",
+        "exemption_response",
+        "sender"
     ],
     "type": "object",
     "properties": {
         "action": {
             "enum": [
-                "validated"
+                "response_dismissed"
             ],
             "type": "string"
-        },
-        "alert": {
-            "type": "object",
-            "properties": {
-                "number": {
-                    "type": "integer",
-                    "description": "The security alert number.",
-                    "readOnly": true
-                },
-                "created_at": {
-                    "type": "string",
-                    "description": "The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.",
-                    "format": "date-time",
-                    "readOnly": true
-                },
-                "updated_at": {
-                    "anyOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string",
-                            "description": "The time that the alert was last updated in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.",
-                            "format": "date-time",
-                            "readOnly": true
-                        }
-                    ]
-                },
-                "url": {
-                    "type": "string",
-                    "description": "The REST API URL of the alert resource.",
-                    "format": "uri",
-                    "readOnly": true
-                },
-                "html_url": {
-                    "type": "string",
-                    "description": "The GitHub URL of the alert resource.",
-                    "format": "uri",
-                    "readOnly": true
-                },
-                "locations_url": {
-                    "type": "string",
-                    "description": "The REST API URL of the code locations for this alert.",
-                    "format": "uri"
-                },
-                "resolution": {
-                    "enum": [
-                        "false_positive",
-                        "wont_fix",
-                        "revoked",
-                        "used_in_tests",
-                        "pattern_deleted",
-                        "pattern_edited",
-                        null
-                    ],
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "The reason for resolving the alert."
-                },
-                "resolved_at": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "The time that the alert was resolved in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.",
-                    "format": "date-time"
-                },
-                "resolved_by": {
-                    "anyOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "title": "Simple User",
-                            "required": [
-                                "avatar_url",
-                                "events_url",
-                                "followers_url",
-                                "following_url",
-                                "gists_url",
-                                "gravatar_id",
-                                "html_url",
-                                "id",
-                                "node_id",
-                                "login",
-                                "organizations_url",
-                                "received_events_url",
-                                "repos_url",
-                                "site_admin",
-                                "starred_url",
-                                "subscriptions_url",
-                                "type",
-                                "url"
-                            ],
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": [
-                                        "string",
-                                        "null"
-                                    ]
-                                },
-                                "email": {
-                                    "type": [
-                                        "string",
-                                        "null"
-                                    ]
-                                },
-                                "login": {
-                                    "type": "string",
-                                    "examples": [
-                                        "octocat"
-                                    ]
-                                },
-                                "id": {
-                                    "type": "integer",
-                                    "examples": [
-                                        1
-                                    ]
-                                },
-                                "node_id": {
-                                    "type": "string",
-                                    "examples": [
-                                        "MDQ6VXNlcjE="
-                                    ]
-                                },
-                                "avatar_url": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "examples": [
-                                        "https:\\/\\/github.com\\/images\\/error\\/octocat_happy.gif"
-                                    ]
-                                },
-                                "gravatar_id": {
-                                    "type": [
-                                        "string",
-                                        "null"
-                                    ],
-                                    "examples": [
-                                        "41d064eb2195891e12d0413f63227ea7"
-                                    ]
-                                },
-                                "url": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat"
-                                    ]
-                                },
-                                "html_url": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "examples": [
-                                        "https:\\/\\/github.com\\/octocat"
-                                    ]
-                                },
-                                "followers_url": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/followers"
-                                    ]
-                                },
-                                "following_url": {
-                                    "type": "string",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/following{\\/other_user}"
-                                    ]
-                                },
-                                "gists_url": {
-                                    "type": "string",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/gists{\\/gist_id}"
-                                    ]
-                                },
-                                "starred_url": {
-                                    "type": "string",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/starred{\\/owner}{\\/repo}"
-                                    ]
-                                },
-                                "subscriptions_url": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/subscriptions"
-                                    ]
-                                },
-                                "organizations_url": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/orgs"
-                                    ]
-                                },
-                                "repos_url": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/repos"
-                                    ]
-                                },
-                                "events_url": {
-                                    "type": "string",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/events{\\/privacy}"
-                                    ]
-                                },
-                                "received_events_url": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/received_events"
-                                    ]
-                                },
-                                "type": {
-                                    "type": "string",
-                                    "examples": [
-                                        "User"
-                                    ]
-                                },
-                                "site_admin": {
-                                    "type": "boolean"
-                                },
-                                "starred_at": {
-                                    "type": "string",
-                                    "examples": [
-                                        "\\"2020-07-09T00:17:55Z\\""
-                                    ]
-                                }
-                            },
-                            "description": "A GitHub user."
-                        }
-                    ]
-                },
-                "resolution_comment": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "An optional comment to resolve an alert."
-                },
-                "secret_type": {
-                    "type": "string",
-                    "description": "The type of secret that secret scanning detected."
-                },
-                "secret_type_display_name": {
-                    "type": "string",
-                    "description": "User-friendly name for the detected secret, matching the `secret_type`.\\nFor a list of built-in patterns, see \\"[Secret scanning patterns](https:\\/\\/docs.github.com\\/enterprise-cloud@latest\\/\\/code-security\\/secret-scanning\\/secret-scanning-patterns#supported-secrets-for-advanced-security).\\""
-                },
-                "validity": {
-                    "enum": [
-                        "active",
-                        "inactive",
-                        "unknown"
-                    ],
-                    "type": "string",
-                    "description": "The token status as of the latest validity check."
-                },
-                "push_protection_bypassed": {
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
-                    "description": "Whether push protection was bypassed for the detected secret."
-                },
-                "push_protection_bypassed_by": {
-                    "anyOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "title": "Simple User",
-                            "required": [
-                                "avatar_url",
-                                "events_url",
-                                "followers_url",
-                                "following_url",
-                                "gists_url",
-                                "gravatar_id",
-                                "html_url",
-                                "id",
-                                "node_id",
-                                "login",
-                                "organizations_url",
-                                "received_events_url",
-                                "repos_url",
-                                "site_admin",
-                                "starred_url",
-                                "subscriptions_url",
-                                "type",
-                                "url"
-                            ],
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": [
-                                        "string",
-                                        "null"
-                                    ]
-                                },
-                                "email": {
-                                    "type": [
-                                        "string",
-                                        "null"
-                                    ]
-                                },
-                                "login": {
-                                    "type": "string",
-                                    "examples": [
-                                        "octocat"
-                                    ]
-                                },
-                                "id": {
-                                    "type": "integer",
-                                    "examples": [
-                                        1
-                                    ]
-                                },
-                                "node_id": {
-                                    "type": "string",
-                                    "examples": [
-                                        "MDQ6VXNlcjE="
-                                    ]
-                                },
-                                "avatar_url": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "examples": [
-                                        "https:\\/\\/github.com\\/images\\/error\\/octocat_happy.gif"
-                                    ]
-                                },
-                                "gravatar_id": {
-                                    "type": [
-                                        "string",
-                                        "null"
-                                    ],
-                                    "examples": [
-                                        "41d064eb2195891e12d0413f63227ea7"
-                                    ]
-                                },
-                                "url": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat"
-                                    ]
-                                },
-                                "html_url": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "examples": [
-                                        "https:\\/\\/github.com\\/octocat"
-                                    ]
-                                },
-                                "followers_url": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/followers"
-                                    ]
-                                },
-                                "following_url": {
-                                    "type": "string",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/following{\\/other_user}"
-                                    ]
-                                },
-                                "gists_url": {
-                                    "type": "string",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/gists{\\/gist_id}"
-                                    ]
-                                },
-                                "starred_url": {
-                                    "type": "string",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/starred{\\/owner}{\\/repo}"
-                                    ]
-                                },
-                                "subscriptions_url": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/subscriptions"
-                                    ]
-                                },
-                                "organizations_url": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/orgs"
-                                    ]
-                                },
-                                "repos_url": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/repos"
-                                    ]
-                                },
-                                "events_url": {
-                                    "type": "string",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/events{\\/privacy}"
-                                    ]
-                                },
-                                "received_events_url": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "examples": [
-                                        "https:\\/\\/api.github.com\\/users\\/octocat\\/received_events"
-                                    ]
-                                },
-                                "type": {
-                                    "type": "string",
-                                    "examples": [
-                                        "User"
-                                    ]
-                                },
-                                "site_admin": {
-                                    "type": "boolean"
-                                },
-                                "starred_at": {
-                                    "type": "string",
-                                    "examples": [
-                                        "\\"2020-07-09T00:17:55Z\\""
-                                    ]
-                                }
-                            },
-                            "description": "A GitHub user."
-                        }
-                    ]
-                },
-                "push_protection_bypassed_at": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "The time that push protection was bypassed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.",
-                    "format": "date-time"
-                }
-            }
         },
         "enterprise": {
             "title": "Enterprise",
@@ -2156,6 +1713,262 @@ final readonly class WebhookSecretScanningAlertValidated
             },
             "description": "The repository on GitHub where the event occurred. Webhook payloads contain the `repository` property\\nwhen the event occurs from activity in a repository."
         },
+        "exemption_request": {
+            "title": "Exemption Request",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "The ID of the exemption request."
+                },
+                "number": {
+                    "type": "integer",
+                    "description": "The number uniquely identifying the exemption request within it\'s repository."
+                },
+                "repository_id": {
+                    "type": "integer",
+                    "description": "The ID of the repository the exemption request is for."
+                },
+                "requester_id": {
+                    "type": "integer",
+                    "description": "The ID of the user who requested the exemption."
+                },
+                "requester_login": {
+                    "type": "string",
+                    "description": "The login of the user who requested the exemption."
+                },
+                "request_type": {
+                    "enum": [
+                        "push_ruleset_bypass",
+                        "secret_scanning"
+                    ],
+                    "type": "string",
+                    "description": "The type of request."
+                },
+                "exemption_request_data": {
+                    "oneOf": [
+                        {
+                            "title": "Push ruleset bypass exemption request data",
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "enum": [
+                                        "push_ruleset_bypass"
+                                    ],
+                                    "type": "string",
+                                    "description": "The type of request"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "ruleset_id": {
+                                                "type": "integer",
+                                                "description": "The ID of the ruleset for the rules that were violated"
+                                            },
+                                            "ruleset_name": {
+                                                "type": "string",
+                                                "description": "The name of the ruleset for the rules that were violated"
+                                            },
+                                            "total_violations": {
+                                                "type": "integer",
+                                                "description": "The number of violations"
+                                            },
+                                            "rule_type": {
+                                                "type": "string",
+                                                "description": "The type of rule that was violated"
+                                            }
+                                        }
+                                    },
+                                    "description": "The data pertaining to the push rules that are being requested to be bypassed."
+                                }
+                            },
+                            "description": "Push rules that are being requested to be bypassed."
+                        },
+                        {
+                            "title": "Secret scanning push protection exemption request data",
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "enum": [
+                                        "secret_scanning"
+                                    ],
+                                    "type": "string",
+                                    "description": "The type of request"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "secret_type": {
+                                                "type": "string",
+                                                "description": "The type of secret that was detected"
+                                            },
+                                            "commits": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "description": "The commits that introduced the secret"
+                                            }
+                                        }
+                                    },
+                                    "description": "The data pertaining to the secret scanning push protections that are being requested to be bypassed."
+                                }
+                            },
+                            "description": "Secret scanning push protections that are being requested to be bypassed."
+                        }
+                    ]
+                },
+                "resource_identifier": {
+                    "type": "string",
+                    "description": "The unique identifier for the request type of the exemption request. For example, a commit SHA.",
+                    "examples": [
+                        "827efc6d56897b048c772eb4087f854f46256132"
+                    ]
+                },
+                "status": {
+                    "enum": [
+                        "pending",
+                        "rejected",
+                        "cancelled",
+                        "completed"
+                    ],
+                    "type": "string",
+                    "description": "The status of the exemption request."
+                },
+                "requester_comment": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "The comment the requester provided when creating the exemption request."
+                },
+                "metadata": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "oneOf": [
+                        {
+                            "title": "Secret Scanning Push Protection Exemption Request Metadata",
+                            "type": "object",
+                            "properties": {
+                                "label": {
+                                    "type": "string",
+                                    "description": "The label for the secret type"
+                                },
+                                "reason": {
+                                    "enum": [
+                                        "fixed_later",
+                                        "false_positive",
+                                        "tests"
+                                    ],
+                                    "type": "string",
+                                    "description": "The reason for the exemption request"
+                                }
+                            },
+                            "description": "Metadata for a secret scanning push protection exemption request."
+                        }
+                    ],
+                    "description": "Metadata about the exemption request."
+                },
+                "expires_at": {
+                    "type": "string",
+                    "description": "The date and time the exemption request will expire.",
+                    "format": "date-time"
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "The date and time the exemption request was created.",
+                    "format": "date-time"
+                },
+                "responses": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "items": {
+                        "title": "Exemption response",
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "integer",
+                                "description": "The ID of the exemption response."
+                            },
+                            "reviewer_id": {
+                                "type": "integer",
+                                "description": "The ID of the user who reviewed the exemption request."
+                            },
+                            "reviewer_login": {
+                                "type": "string",
+                                "description": "The login of the user who reviewed the exemption request."
+                            },
+                            "status": {
+                                "enum": [
+                                    "approved",
+                                    "rejected",
+                                    "dismissed"
+                                ],
+                                "type": "string",
+                                "description": "The status of the exemption response."
+                            },
+                            "created_at": {
+                                "type": "string",
+                                "description": "The date and time the exemption request was created.",
+                                "format": "date-time"
+                            }
+                        },
+                        "description": "A response to an exemption request by a delegated bypasser."
+                    },
+                    "description": "The responses to the exemption request."
+                },
+                "html_url": {
+                    "type": "string",
+                    "description": "The URL to view the exemption request in a browser.",
+                    "format": "uri",
+                    "examples": [
+                        "https:\\/\\/github.com\\/monalisa\\/smile\\/exemptions\\/1"
+                    ]
+                }
+            },
+            "description": "A request from a user to be exempted from a set of rules."
+        },
+        "exemption_response": {
+            "title": "Exemption response",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "The ID of the exemption response."
+                },
+                "reviewer_id": {
+                    "type": "integer",
+                    "description": "The ID of the user who reviewed the exemption request."
+                },
+                "reviewer_login": {
+                    "type": "string",
+                    "description": "The login of the user who reviewed the exemption request."
+                },
+                "status": {
+                    "enum": [
+                        "approved",
+                        "rejected",
+                        "dismissed"
+                    ],
+                    "type": "string",
+                    "description": "The status of the exemption response."
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "The date and time the exemption request was created.",
+                    "format": "date-time"
+                }
+            },
+            "description": "A response to an exemption request by a delegated bypasser."
+        },
         "sender": {
             "title": "Simple User",
             "required": [
@@ -2319,72 +2132,10 @@ final readonly class WebhookSecretScanningAlertValidated
         }
     }
 }';
-    public const SCHEMA_TITLE        = 'secret_scanning_alert validated event';
+    public const SCHEMA_TITLE        = 'Exemption response dismissed event';
     public const SCHEMA_DESCRIPTION  = '';
     public const SCHEMA_EXAMPLE_DATA = '{
-    "action": "validated",
-    "alert": {
-        "number": 6,
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "updated_at": "1970-01-01T00:00:00+00:00",
-        "url": "https:\\/\\/example.com\\/",
-        "html_url": "https:\\/\\/example.com\\/",
-        "locations_url": "https:\\/\\/example.com\\/",
-        "resolution": "pattern_edited",
-        "resolved_at": "1970-01-01T00:00:00+00:00",
-        "resolved_by": {
-            "name": "generated",
-            "email": "generated",
-            "login": "octocat",
-            "id": 1,
-            "node_id": "MDQ6VXNlcjE=",
-            "avatar_url": "https:\\/\\/github.com\\/images\\/error\\/octocat_happy.gif",
-            "gravatar_id": "41d064eb2195891e12d0413f63227ea7",
-            "url": "https:\\/\\/api.github.com\\/users\\/octocat",
-            "html_url": "https:\\/\\/github.com\\/octocat",
-            "followers_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/followers",
-            "following_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/following{\\/other_user}",
-            "gists_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/gists{\\/gist_id}",
-            "starred_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/starred{\\/owner}{\\/repo}",
-            "subscriptions_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/subscriptions",
-            "organizations_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/orgs",
-            "repos_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/repos",
-            "events_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/events{\\/privacy}",
-            "received_events_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/received_events",
-            "type": "User",
-            "site_admin": false,
-            "starred_at": "\\"2020-07-09T00:17:55Z\\""
-        },
-        "resolution_comment": "generated",
-        "secret_type": "generated",
-        "secret_type_display_name": "generated",
-        "validity": "unknown",
-        "push_protection_bypassed": false,
-        "push_protection_bypassed_by": {
-            "name": "generated",
-            "email": "generated",
-            "login": "octocat",
-            "id": 1,
-            "node_id": "MDQ6VXNlcjE=",
-            "avatar_url": "https:\\/\\/github.com\\/images\\/error\\/octocat_happy.gif",
-            "gravatar_id": "41d064eb2195891e12d0413f63227ea7",
-            "url": "https:\\/\\/api.github.com\\/users\\/octocat",
-            "html_url": "https:\\/\\/github.com\\/octocat",
-            "followers_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/followers",
-            "following_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/following{\\/other_user}",
-            "gists_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/gists{\\/gist_id}",
-            "starred_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/starred{\\/owner}{\\/repo}",
-            "subscriptions_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/subscriptions",
-            "organizations_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/orgs",
-            "repos_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/repos",
-            "events_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/events{\\/privacy}",
-            "received_events_url": "https:\\/\\/api.github.com\\/users\\/octocat\\/received_events",
-            "type": "User",
-            "site_admin": false,
-            "starred_at": "\\"2020-07-09T00:17:55Z\\""
-        },
-        "push_protection_bypassed_at": "1970-01-01T00:00:00+00:00"
-    },
+    "action": "response_dismissed",
     "enterprise": {
         "description": "generated",
         "html_url": "https:\\/\\/github.com\\/enterprises\\/octo-business",
@@ -2693,6 +2444,30 @@ final readonly class WebhookSecretScanningAlertValidated
         "starred_at": "\\"2020-07-09T00:17:42Z\\"",
         "anonymous_access_enabled": false
     },
+    "exemption_request": {
+        "id": 2,
+        "number": 6,
+        "repository_id": 13,
+        "requester_id": 12,
+        "requester_login": "generated",
+        "request_type": "secret_scanning",
+        "exemption_request_data": null,
+        "resource_identifier": "827efc6d56897b048c772eb4087f854f46256132",
+        "status": "completed",
+        "requester_comment": "generated",
+        "metadata": null,
+        "expires_at": "1970-01-01T00:00:00+00:00",
+        "created_at": "1970-01-01T00:00:00+00:00",
+        "responses": null,
+        "html_url": "https:\\/\\/github.com\\/monalisa\\/smile\\/exemptions\\/1"
+    },
+    "exemption_response": {
+        "id": 2,
+        "reviewer_id": 11,
+        "reviewer_login": "generated",
+        "status": "dismissed",
+        "created_at": "1970-01-01T00:00:00+00:00"
+    },
     "sender": {
         "name": "generated",
         "email": "generated",
@@ -2730,9 +2505,13 @@ final readonly class WebhookSecretScanningAlertValidated
     organization, or when the event occurs from activity in a repository owned by an organization.
      * repository: The repository on GitHub where the event occurred. Webhook payloads contain the `repository` property
     when the event occurs from activity in a repository.
+     * exemptionRequest: A request from a user to be exempted from a set of rules.
+     * exemptionResponse: A response to an exemption request by a delegated bypasser.
      * sender: The GitHub user that triggered the event. This property is included in every webhook payload.
      */
-    public function __construct(public string $action, public Schema\SecretScanningAlertWebhook $alert, public Schema\EnterpriseWebhooks|null $enterprise, public Schema\SimpleInstallation|null $installation, public Schema\OrganizationSimpleWebhooks|null $organization, public Schema\RepositoryWebhooks $repository, public Schema\SimpleUserWebhooks|null $sender)
+    public function __construct(public string $action, public Schema\EnterpriseWebhooks|null $enterprise, public Schema\SimpleInstallation|null $installation, public Schema\OrganizationSimpleWebhooks|null $organization, public Schema\RepositoryWebhooks|null $repository, #[MapFrom('exemption_request')]
+    public Schema\ExemptionRequest $exemptionRequest, #[MapFrom('exemption_response')]
+    public Schema\ExemptionResponse $exemptionResponse, public Schema\SimpleUserWebhooks $sender,)
     {
     }
 }
