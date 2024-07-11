@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ApiClients\Client\GitHubEnterpriseCloud\Schema\AliasAbstract\Tiet8675C8CD\Tiet1D8534BC\TietB3A1AAFB;
+namespace ApiClients\Client\GitHubEnterpriseCloud\Schema\AliasAbstract\Tiet84990AD5\Tiet4DC2FD40\TietC1C8F365;
 
 use EventSauce\ObjectHydrator\MapFrom;
 
-abstract readonly class Tiet8D558DBD
+abstract readonly class Tiet342E1A6B
 {
     public const SCHEMA_JSON         = '{
     "required": [
@@ -1599,6 +1599,18 @@ abstract readonly class Tiet8D558DBD
                                             }
                                         }
                                     },
+                                    "secret_scanning_non_provider_patterns": {
+                                        "type": "object",
+                                        "properties": {
+                                            "status": {
+                                                "enum": [
+                                                    "enabled",
+                                                    "disabled"
+                                                ],
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
                                     "secret_scanning_validity_checks": {
                                         "type": "object",
                                         "properties": {
@@ -2417,6 +2429,18 @@ abstract readonly class Tiet8D558DBD
                                             }
                                         }
                                     },
+                                    "secret_scanning_non_provider_patterns": {
+                                        "type": "object",
+                                        "properties": {
+                                            "status": {
+                                                "enum": [
+                                                    "enabled",
+                                                    "disabled"
+                                                ],
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
                                     "secret_scanning_validity_checks": {
                                         "type": "object",
                                         "properties": {
@@ -2691,6 +2715,9 @@ abstract readonly class Tiet8D558DBD
                     "secret_scanning_push_protection": {
                         "status": "disabled"
                     },
+                    "secret_scanning_non_provider_patterns": {
+                        "status": "disabled"
+                    },
                     "secret_scanning_validity_checks": {
                         "status": "disabled"
                     }
@@ -2837,6 +2864,9 @@ abstract readonly class Tiet8D558DBD
                         "status": "disabled"
                     },
                     "secret_scanning_push_protection": {
+                        "status": "disabled"
+                    },
+                    "secret_scanning_non_provider_patterns": {
                         "status": "disabled"
                     },
                     "secret_scanning_validity_checks": {
@@ -3080,6 +3110,9 @@ abstract readonly class Tiet8D558DBD
                     "secret_scanning_push_protection": {
                         "status": "disabled"
                     },
+                    "secret_scanning_non_provider_patterns": {
+                        "status": "disabled"
+                    },
                     "secret_scanning_validity_checks": {
                         "status": "disabled"
                     }
@@ -3226,6 +3259,9 @@ abstract readonly class Tiet8D558DBD
                         "status": "disabled"
                     },
                     "secret_scanning_push_protection": {
+                        "status": "disabled"
+                    },
+                    "secret_scanning_non_provider_patterns": {
                         "status": "disabled"
                     },
                     "secret_scanning_validity_checks": {

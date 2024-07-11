@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ApiClients\Client\GitHubEnterpriseCloud\Schema\AliasAbstract\Tiet47291394\Tiet855E3A6A\Tiet0E5B99D4;
+namespace ApiClients\Client\GitHubEnterpriseCloud\Schema\AliasAbstract\TietD2703E82\TietE0AE8597\TietBBC837FB;
 
 use EventSauce\ObjectHydrator\MapFrom;
 
-abstract readonly class TietFC308C72
+abstract readonly class Tiet5F1383AC
 {
     public const SCHEMA_JSON         = '{
     "required": [
@@ -821,6 +821,18 @@ abstract readonly class TietFC308C72
                                     }
                                 }
                             },
+                            "secret_scanning_non_provider_patterns": {
+                                "type": "object",
+                                "properties": {
+                                    "status": {
+                                        "enum": [
+                                            "enabled",
+                                            "disabled"
+                                        ],
+                                        "type": "string"
+                                    }
+                                }
+                            },
                             "secret_scanning_validity_checks": {
                                 "type": "object",
                                 "properties": {
@@ -989,6 +1001,9 @@ abstract readonly class TietFC308C72
                 "secret_scanning_push_protection": {
                     "status": "disabled"
                 },
+                "secret_scanning_non_provider_patterns": {
+                    "status": "disabled"
+                },
                 "secret_scanning_validity_checks": {
                     "status": "disabled"
                 }
@@ -1135,6 +1150,9 @@ abstract readonly class TietFC308C72
                     "status": "disabled"
                 },
                 "secret_scanning_push_protection": {
+                    "status": "disabled"
+                },
+                "secret_scanning_non_provider_patterns": {
                     "status": "disabled"
                 },
                 "secret_scanning_validity_checks": {
