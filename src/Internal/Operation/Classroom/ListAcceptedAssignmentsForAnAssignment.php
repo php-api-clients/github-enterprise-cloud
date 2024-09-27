@@ -20,9 +20,9 @@ use function explode;
 use function json_decode;
 use function str_replace;
 
-final class ListAcceptedAssigmentsForAnAssignment
+final class ListAcceptedAssignmentsForAnAssignment
 {
-    public const OPERATION_ID    = 'classroom/list-accepted-assigments-for-an-assignment';
+    public const OPERATION_ID    = 'classroom/list-accepted-assignments-for-an-assignment';
     public const OPERATION_MATCH = 'GET /assignments/{assignment_id}/accepted_assignments';
     /**The unique identifier of the classroom assignment. **/
     private int $assignmentId;
