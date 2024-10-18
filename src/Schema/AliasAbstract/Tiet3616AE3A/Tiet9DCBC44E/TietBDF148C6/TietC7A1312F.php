@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ApiClients\Client\GitHubEnterpriseCloud\Schema\AliasAbstract\TietD2703E82\TietE0AE8597\TietBBC837FB;
+namespace ApiClients\Client\GitHubEnterpriseCloud\Schema\AliasAbstract\Tiet3616AE3A\Tiet9DCBC44E\TietBDF148C6;
 
 use EventSauce\ObjectHydrator\MapFrom;
 
-abstract readonly class Tiet5F1383AC
+abstract readonly class TietC7A1312F
 {
     public const SCHEMA_JSON         = '{
     "required": [
@@ -833,6 +833,18 @@ abstract readonly class Tiet5F1383AC
                                     }
                                 }
                             },
+                            "secret_scanning_ai_detection": {
+                                "type": "object",
+                                "properties": {
+                                    "status": {
+                                        "enum": [
+                                            "enabled",
+                                            "disabled"
+                                        ],
+                                        "type": "string"
+                                    }
+                                }
+                            },
                             "secret_scanning_validity_checks": {
                                 "type": "object",
                                 "properties": {
@@ -1004,6 +1016,9 @@ abstract readonly class Tiet5F1383AC
                 "secret_scanning_non_provider_patterns": {
                     "status": "disabled"
                 },
+                "secret_scanning_ai_detection": {
+                    "status": "disabled"
+                },
                 "secret_scanning_validity_checks": {
                     "status": "disabled"
                 }
@@ -1153,6 +1168,9 @@ abstract readonly class Tiet5F1383AC
                     "status": "disabled"
                 },
                 "secret_scanning_non_provider_patterns": {
+                    "status": "disabled"
+                },
+                "secret_scanning_ai_detection": {
                     "status": "disabled"
                 },
                 "secret_scanning_validity_checks": {

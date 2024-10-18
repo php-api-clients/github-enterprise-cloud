@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ApiClients\Client\GitHubEnterpriseCloud\Schema\AliasAbstract\Tiet84990AD5\Tiet4DC2FD40\TietC1C8F365;
+namespace ApiClients\Client\GitHubEnterpriseCloud\Schema\AliasAbstract\Tiet1D194FB1\Tiet1FB5695E\Tiet0456C85C;
 
 use EventSauce\ObjectHydrator\MapFrom;
 
-abstract readonly class Tiet342E1A6B
+abstract readonly class Tiet7BDB2A1B
 {
     public const SCHEMA_JSON         = '{
     "required": [
@@ -1611,6 +1611,18 @@ abstract readonly class Tiet342E1A6B
                                             }
                                         }
                                     },
+                                    "secret_scanning_ai_detection": {
+                                        "type": "object",
+                                        "properties": {
+                                            "status": {
+                                                "enum": [
+                                                    "enabled",
+                                                    "disabled"
+                                                ],
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
                                     "secret_scanning_validity_checks": {
                                         "type": "object",
                                         "properties": {
@@ -2441,6 +2453,18 @@ abstract readonly class Tiet342E1A6B
                                             }
                                         }
                                     },
+                                    "secret_scanning_ai_detection": {
+                                        "type": "object",
+                                        "properties": {
+                                            "status": {
+                                                "enum": [
+                                                    "enabled",
+                                                    "disabled"
+                                                ],
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
                                     "secret_scanning_validity_checks": {
                                         "type": "object",
                                         "properties": {
@@ -2718,6 +2742,9 @@ abstract readonly class Tiet342E1A6B
                     "secret_scanning_non_provider_patterns": {
                         "status": "disabled"
                     },
+                    "secret_scanning_ai_detection": {
+                        "status": "disabled"
+                    },
                     "secret_scanning_validity_checks": {
                         "status": "disabled"
                     }
@@ -2867,6 +2894,9 @@ abstract readonly class Tiet342E1A6B
                         "status": "disabled"
                     },
                     "secret_scanning_non_provider_patterns": {
+                        "status": "disabled"
+                    },
+                    "secret_scanning_ai_detection": {
                         "status": "disabled"
                     },
                     "secret_scanning_validity_checks": {
@@ -3113,6 +3143,9 @@ abstract readonly class Tiet342E1A6B
                     "secret_scanning_non_provider_patterns": {
                         "status": "disabled"
                     },
+                    "secret_scanning_ai_detection": {
+                        "status": "disabled"
+                    },
                     "secret_scanning_validity_checks": {
                         "status": "disabled"
                     }
@@ -3262,6 +3295,9 @@ abstract readonly class Tiet342E1A6B
                         "status": "disabled"
                     },
                     "secret_scanning_non_provider_patterns": {
+                        "status": "disabled"
+                    },
+                    "secret_scanning_ai_detection": {
                         "status": "disabled"
                     },
                     "secret_scanning_validity_checks": {
