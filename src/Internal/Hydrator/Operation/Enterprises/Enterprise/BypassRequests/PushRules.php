@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ApiClients\Client\GitHubEnterpriseCloud\Internal\Hydrator\Operation\Orgs\Org\Actions\Runners;
+namespace ApiClients\Client\GitHubEnterpriseCloud\Internal\Hydrator\Operation\Enterprises\Enterprise\BypassRequests;
 
-use ApiClients\Client\GitHubEnterpriseCloud\Schema\Runner;
+use ApiClients\Client\GitHubEnterpriseCloud\Schema\BasicError;
 use EventSauce\ObjectHydrator\IterableList;
 use EventSauce\ObjectHydrator\ObjectMapper;
 use EventSauce\ObjectHydrator\PropertySerializers\SerializeArrayItems;
@@ -20,7 +20,7 @@ use function assert;
 use function count;
 use function is_a;
 
-class RunnerId implements ObjectMapper
+class PushRules implements ObjectMapper
 {
     private array $hydrationStack = [];
 
@@ -38,115 +38,71 @@ class RunnerId implements ObjectMapper
     public function hydrateObject(string $className, array $payload): object
     {
         return match ($className) {
-            'ApiClients\Client\GitHubEnterpriseCloud\Schema\Runner' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️Runner($payload),
+            'ApiClients\Client\GitHubEnterpriseCloud\Schema\BasicError' => $this->hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️BasicError($payload),
             default => throw UnableToHydrateObject::noHydrationDefined($className, $this->hydrationStack),
         };
     }
 
-    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️Runner(array $payload): Runner
+    private function hydrateApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️BasicError(array $payload): BasicError
     {
         $properties    = [];
         $missingFields = [];
         try {
-            $value = $payload['id'] ?? null;
+            $value = $payload['message'] ?? null;
 
             if ($value === null) {
-                $missingFields[] = 'id';
-                goto after_id;
+                $properties['message'] = null;
+                goto after_message;
             }
 
-            $properties['id'] = $value;
+            $properties['message'] = $value;
 
-            after_id:
+            after_message:
 
-            $value = $payload['runner_group_id'] ?? null;
+            $value = $payload['documentation_url'] ?? null;
 
             if ($value === null) {
-                $properties['runnerGroupId'] = null;
-                goto after_runnerGroupId;
+                $properties['documentationUrl'] = null;
+                goto after_documentationUrl;
             }
 
-            $properties['runnerGroupId'] = $value;
+            $properties['documentationUrl'] = $value;
 
-            after_runnerGroupId:
+            after_documentationUrl:
 
-            $value = $payload['name'] ?? null;
+            $value = $payload['url'] ?? null;
 
             if ($value === null) {
-                $missingFields[] = 'name';
-                goto after_name;
+                $properties['url'] = null;
+                goto after_url;
             }
 
-            $properties['name'] = $value;
+            $properties['url'] = $value;
 
-            after_name:
-
-            $value = $payload['os'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'os';
-                goto after_os;
-            }
-
-            $properties['os'] = $value;
-
-            after_os:
+            after_url:
 
             $value = $payload['status'] ?? null;
 
             if ($value === null) {
-                $missingFields[] = 'status';
+                $properties['status'] = null;
                 goto after_status;
             }
 
             $properties['status'] = $value;
 
             after_status:
-
-            $value = $payload['busy'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'busy';
-                goto after_busy;
-            }
-
-            $properties['busy'] = $value;
-
-            after_busy:
-
-            $value = $payload['labels'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'labels';
-                goto after_labels;
-            }
-
-            $properties['labels'] = $value;
-
-            after_labels:
-
-            $value = $payload['ephemeral'] ?? null;
-
-            if ($value === null) {
-                $properties['ephemeral'] = null;
-                goto after_ephemeral;
-            }
-
-            $properties['ephemeral'] = $value;
-
-            after_ephemeral:
         } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\Runner', $exception, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\BasicError', $exception, stack: $this->hydrationStack);
         }
 
         if (count($missingFields) > 0) {
-            throw UnableToHydrateObject::dueToMissingFields(Runner::class, $missingFields, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToMissingFields(BasicError::class, $missingFields, stack: $this->hydrationStack);
         }
 
         try {
-            return new Runner(...$properties);
+            return new BasicError(...$properties);
         } catch (Throwable $exception) {
-            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\Runner', $exception, stack: $this->hydrationStack);
+            throw UnableToHydrateObject::dueToError('ApiClients\Client\GitHubEnterpriseCloud\Schema\BasicError', $exception, stack: $this->hydrationStack);
         }
     }
 
@@ -181,7 +137,7 @@ class RunnerId implements ObjectMapper
                 'DateTime' => $this->serializeValueDateTime($object),
                 'DateTimeImmutable' => $this->serializeValueDateTimeImmutable($object),
                 'DateTimeInterface' => $this->serializeValueDateTimeInterface($object),
-                'ApiClients\Client\GitHubEnterpriseCloud\Schema\Runner' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️Runner($object),
+                'ApiClients\Client\GitHubEnterpriseCloud\Schema\BasicError' => $this->serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️BasicError($object),
                 default => throw new LogicException("No serialization defined for $className"),
             };
         } catch (Throwable $exception) {
@@ -244,51 +200,42 @@ class RunnerId implements ObjectMapper
         return $serializer->serialize($value, $this);
     }
 
-    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️Runner(mixed $object): mixed
+    private function serializeObjectApiClients⚡️Client⚡️GitHubEnterpriseCloud⚡️Schema⚡️BasicError(mixed $object): mixed
     {
-        assert($object instanceof Runner);
+        assert($object instanceof BasicError);
         $result = [];
 
-        $id                            = $object->id;
-        after_id:        $result['id'] = $id;
+        $message = $object->message;
 
-        $runnerGroupId = $object->runnerGroupId;
-
-        if ($runnerGroupId === null) {
-            goto after_runnerGroupId;
+        if ($message === null) {
+            goto after_message;
         }
 
-        after_runnerGroupId:        $result['runner_group_id'] = $runnerGroupId;
+        after_message:        $result['message'] = $message;
 
-        $name                              = $object->name;
-        after_name:        $result['name'] = $name;
+        $documentationUrl = $object->documentationUrl;
 
-        $os                            = $object->os;
-        after_os:        $result['os'] = $os;
+        if ($documentationUrl === null) {
+            goto after_documentationUrl;
+        }
 
-        $status                                = $object->status;
+        after_documentationUrl:        $result['documentation_url'] = $documentationUrl;
+
+        $url = $object->url;
+
+        if ($url === null) {
+            goto after_url;
+        }
+
+        after_url:        $result['url'] = $url;
+
+        $status = $object->status;
+
+        if ($status === null) {
+            goto after_status;
+        }
+
         after_status:        $result['status'] = $status;
-
-        $busy                              = $object->busy;
-        after_busy:        $result['busy'] = $busy;
-
-        $labels = $object->labels;
-        static $labelsSerializer0;
-
-        if ($labelsSerializer0 === null) {
-            $labelsSerializer0 = new SerializeArrayItems(...[]);
-        }
-
-        $labels                                = $labelsSerializer0->serialize($labels, $this);
-        after_labels:        $result['labels'] = $labels;
-
-        $ephemeral = $object->ephemeral;
-
-        if ($ephemeral === null) {
-            goto after_ephemeral;
-        }
-
-        after_ephemeral:        $result['ephemeral'] = $ephemeral;
 
         return $result;
     }
