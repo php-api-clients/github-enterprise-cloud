@@ -41,7 +41,7 @@ use function is_a;
 use function is_array;
 use function is_object;
 
-class ExemptionRequestPushRuleset implements ObjectMapper
+class ExemptionRequestSecretScanningClosure implements ObjectMapper
 {
     private array $hydrationStack = [];
 
