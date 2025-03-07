@@ -13,9 +13,9 @@ use RuntimeException;
 use Throwable;
 
 /** @internal */
-final class ExemptionRequestSecretScanningClosure implements WebHookInterface
+final class DismissalRequestSecretScanning implements WebHookInterface
 {
-    public function __construct(private readonly SchemaValidator $requestSchemaValidator, private readonly Internal\Hydrator\WebHook\ExemptionRequestSecretScanningClosure $hydrator)
+    public function __construct(private readonly SchemaValidator $requestSchemaValidator, private readonly Internal\Hydrator\WebHook\DismissalRequestSecretScanning $hydrator)
     {
     }
 

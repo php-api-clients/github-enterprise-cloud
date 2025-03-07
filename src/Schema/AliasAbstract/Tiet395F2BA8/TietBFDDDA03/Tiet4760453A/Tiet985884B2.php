@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ApiClients\Client\GitHubEnterpriseCloud\Schema\AliasAbstract\Tiet9E2FDFD4\Tiet096D3876\Tiet65ACE7F0;
+namespace ApiClients\Client\GitHubEnterpriseCloud\Schema\AliasAbstract\Tiet395F2BA8\TietBFDDDA03\Tiet4760453A;
 
 use EventSauce\ObjectHydrator\MapFrom;
 
-abstract readonly class TietB5771089
+abstract readonly class Tiet985884B2
 {
     public const SCHEMA_JSON         = '{
     "required": [
@@ -99,13 +99,6 @@ abstract readonly class TietB5771089
                                         ],
                                         "type": "string",
                                         "description": "The image provider."
-                                    },
-                                    "version": {
-                                        "type": "string",
-                                        "description": "The image version of the hosted runner pool.",
-                                        "examples": [
-                                            "latest"
-                                        ]
                                     }
                                 },
                                 "description": "Provides details of a hosted runner image"
@@ -251,8 +244,7 @@ abstract readonly class TietB5771089
                 "id": "ubuntu-20.04",
                 "size_gb": 86,
                 "display_name": 20.04,
-                "source": "custom",
-                "version": "latest"
+                "source": "custom"
             },
             "machine_size_details": {
                 "id": "8-core",
@@ -286,8 +278,7 @@ abstract readonly class TietB5771089
                 "id": "ubuntu-20.04",
                 "size_gb": 86,
                 "display_name": 20.04,
-                "source": "custom",
-                "version": "latest"
+                "source": "custom"
             },
             "machine_size_details": {
                 "id": "8-core",

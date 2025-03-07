@@ -6,7 +6,7 @@ namespace ApiClients\Client\GitHubEnterpriseCloud\Schema;
 
 use EventSauce\ObjectHydrator\MapFrom;
 
-final readonly class ExemptionRequestSecretScanningClosureMetadata
+final readonly class DismissalRequestSecretScanningMetadata
 {
     public const SCHEMA_JSON         = '{
     "title": "Secret scanning alert dismissal request metadata",

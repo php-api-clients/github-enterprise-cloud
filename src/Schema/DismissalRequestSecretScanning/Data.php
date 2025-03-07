@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ApiClients\Client\GitHubEnterpriseCloud\Schema\ExemptionRequestSecretScanningClosure;
+namespace ApiClients\Client\GitHubEnterpriseCloud\Schema\DismissalRequestSecretScanning;
 
 use EventSauce\ObjectHydrator\MapFrom;
 

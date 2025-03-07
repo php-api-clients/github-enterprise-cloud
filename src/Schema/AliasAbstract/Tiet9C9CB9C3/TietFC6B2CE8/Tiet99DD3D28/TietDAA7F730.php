@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ApiClients\Client\GitHubEnterpriseCloud\Schema\AliasAbstract\Tiet08F01699\Tiet5339BEAE\TietF9796515;
+namespace ApiClients\Client\GitHubEnterpriseCloud\Schema\AliasAbstract\Tiet9C9CB9C3\TietFC6B2CE8\Tiet99DD3D28;
 
 use EventSauce\ObjectHydrator\MapFrom;
 
-abstract readonly class Tiet7DE1877B
+abstract readonly class TietDAA7F730
 {
     public const SCHEMA_JSON         = '{
     "type": "object",
@@ -26,13 +26,6 @@ abstract readonly class Tiet7DE1877B
         "enable_static_ip": {
             "type": "boolean",
             "description": "Whether this runner should be updated with a static public IP. Note limit on account. To list limits on account, use `GET actions\\/hosted-runners\\/limits`"
-        },
-        "image_version": {
-            "type": [
-                "string",
-                "null"
-            ],
-            "description": "The version of the runner image to deploy. This is relevant only for runners using custom images."
         }
     }
 }';
@@ -42,8 +35,7 @@ abstract readonly class Tiet7DE1877B
     "name": "generated",
     "runner_group_id": 15,
     "maximum_runners": 15,
-    "enable_static_ip": false,
-    "image_version": "generated"
+    "enable_static_ip": false
 }';
 
     /**
@@ -51,13 +43,11 @@ abstract readonly class Tiet7DE1877B
      * runnerGroupId: The existing runner group to add this runner to.
      * maximumRunners: The maximum amount of runners to scale up to. Runners will not auto-scale above this number. Use this setting to limit your cost.
      * enableStaticIp: Whether this runner should be updated with a static public IP. Note limit on account. To list limits on account, use `GET actions/hosted-runners/limits`
-     * imageVersion: The version of the runner image to deploy. This is relevant only for runners using custom images.
      */
     public function __construct(public string|null $name, #[MapFrom('runner_group_id')]
     public int|null $runnerGroupId, #[MapFrom('maximum_runners')]
     public int|null $maximumRunners, #[MapFrom('enable_static_ip')]
-    public bool|null $enableStaticIp, #[MapFrom('image_version')]
-    public string|null $imageVersion,)
+    public bool|null $enableStaticIp,)
     {
     }
 }
